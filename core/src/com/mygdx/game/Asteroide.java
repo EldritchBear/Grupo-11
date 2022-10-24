@@ -12,7 +12,7 @@ public class Asteroide {
     private int y;
     private int xSpeed;
     private int ySpeed;
-    private Sprite spr;
+    final private Sprite spr;
 
     private int hp;
 

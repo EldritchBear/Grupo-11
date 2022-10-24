@@ -14,21 +14,19 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 
 public class PantallaJuego implements Screen {
-	private SpaceNavigation game;
-	private OrthographicCamera camera;
-	private SpriteBatch batch;
-	private Sound explosionSound;
-	private Music gameMusic;
+	final private SpaceNavigation game;
+	final private SpriteBatch batch;
+	final private Sound explosionSound;
+	final private Music gameMusic;
 	private int score;
-	private int ronda;
-	private int velXAsteroides;
-	private int velYAsteroides;
-	private int cantAsteroides;
-	
-	private Nave nave;
-	private  ArrayList<Asteroide> balls1 = new ArrayList<>();
-	private  ArrayList<Asteroide> balls2 = new ArrayList<>();
-	private  ArrayList<Proyectil> balas = new ArrayList<>();
+	final private int ronda;
+	final private int velXAsteroides;
+	final private int velYAsteroides;
+	final private int cantAsteroides;
+	final private Nave nave;
+	final private  ArrayList<Asteroide> balls1 = new ArrayList<>();
+	final private  ArrayList<Asteroide> balls2 = new ArrayList<>();
+	final private  ArrayList<Proyectil> balas = new ArrayList<>();
 
 
 	public PantallaJuego(SpaceNavigation game, int ronda, int vidas, int score,  
@@ -41,7 +39,7 @@ public class PantallaJuego implements Screen {
 		this.cantAsteroides = cantAsteroides;
 		
 		batch = game.getBatch();
-		camera = new OrthographicCamera();
+		OrthographicCamera camera = new OrthographicCamera();
 		camera.setToOrtho(false, 800, 640);
 		//inicializar assets; musica de fondo y efectos de sonido
 		explosionSound = Gdx.audio.newSound(Gdx.files.internal("explosion.ogg"));
@@ -61,8 +59,8 @@ public class PantallaJuego implements Screen {
         //crear asteroides
         Random r = new Random();
 	    for (int i = 0; i < cantAsteroides; i++) {
-	        Asteroide bb = new Asteroide(r.nextInt((int)Gdx.graphics.getWidth()),
-	  	            50+r.nextInt((int)Gdx.graphics.getHeight()-50),
+	        Asteroide bb = new Asteroide(r.nextInt(Gdx.graphics.getWidth()),
+	  	            50+r.nextInt(Gdx.graphics.getHeight()-50),
 	  	            20+r.nextInt(10), velXAsteroides+r.nextInt(4), velYAsteroides+r.nextInt(4), 
 	  	            new Texture(Gdx.files.internal("aGreyMedium4.png")),
 					2);
@@ -160,8 +158,8 @@ public class PantallaJuego implements Screen {
 	    	 
 	}
     
-    public boolean agregarBala(Proyectil bb) {
-    	return balas.add(bb);
+    public void agregarBala(Proyectil bb) {
+		balas.add(bb);
     }
 	
 	@Override

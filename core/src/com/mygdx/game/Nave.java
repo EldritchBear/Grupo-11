@@ -16,12 +16,12 @@ public class Nave {
     private int vidas = 3;
     private float xVel = 0;
     private float yVel = 0;
-    private Sprite spr;
-    private Sound sonidoHerido;
-    private Sound soundBala;
-    private Texture txBala;
+    final private Sprite spr;
+    final private Sound sonidoHerido;
+    final private Sound soundBala;
+    final private Texture txBala;
     private boolean herido = false;
-    private int tiempoHeridoMax=50;
+    final private int tiempoHeridoMax=50;
     private int tiempoHerido;
     
     public Nave(int x, int y, Texture tx, Sound soundChoque, Texture txBala, Sound soundBala) {
@@ -120,8 +120,8 @@ public class Nave {
     }
     
     public int getVidas() {return vidas;}
-    //public boolean isDestruida() {return destruida;}
-    public int getX() {return (int) spr.getX();}
-    public int getY() {return (int) spr.getY();}
+//    public boolean isDestruida() {return destruida;}
+//    public int getX() {return (int) spr.getX();}
+//    public int getY() {return (int) spr.getY();}
 	public void setVidas(int vidas2) {vidas = vidas2;}
 }

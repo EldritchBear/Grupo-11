@@ -9,8 +9,8 @@ import com.badlogic.gdx.utils.ScreenUtils;
 
 public class PantallaMenu implements Screen {
 
-	private SpaceNavigation game;
-	private OrthographicCamera camera;
+	final private SpaceNavigation game;
+	final private OrthographicCamera camera;
 
 	public PantallaMenu(SpaceNavigation game) {
 		this.game = game;

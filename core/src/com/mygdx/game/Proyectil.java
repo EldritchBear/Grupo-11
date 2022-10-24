@@ -8,10 +8,10 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class Proyectil {
 
-	private int xSpeed;
-	private int ySpeed;
+	final private int xSpeed;
+	final private int ySpeed;
 	private boolean destroyed = false;
-	private Sprite spr;
+	final private Sprite spr;
 	    
 	    public Proyectil(float x, float y, int xSpeed, int ySpeed, Texture tx) {
 	    	spr = new Sprite(tx);
