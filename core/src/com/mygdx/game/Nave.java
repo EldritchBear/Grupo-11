@@ -10,7 +10,7 @@ import com.badlogic.gdx.math.MathUtils;
 
 
 
-public class Nave4 {
+public class Nave {
 	
 	private boolean destruida = false;
     private int vidas = 3;
@@ -24,7 +24,7 @@ public class Nave4 {
     private int tiempoHeridoMax=50;
     private int tiempoHerido;
     
-    public Nave4(int x, int y, Texture tx, Sound soundChoque, Texture txBala, Sound soundBala) {
+    public Nave(int x, int y, Texture tx, Sound soundChoque, Texture txBala, Sound soundBala) {
     	sonidoHerido = soundChoque;
     	this.soundBala = soundBala;
     	this.txBala = txBala;
@@ -76,14 +76,14 @@ public class Nave4 {
  		 }
         // disparo
         if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {         
-          Bullet  bala = new Bullet(spr.getX()+spr.getWidth()/2-5,spr.getY()+ spr.getHeight()-5,0,3,txBala);
+          Proyectil bala = new Proyectil(spr.getX()+spr.getWidth()/2-5,spr.getY()+ spr.getHeight()-5,0,3,txBala);
 	      juego.agregarBala(bala);
 	      soundBala.play();
         }
        
     }
       
-    public boolean checkCollision(Ball2 b) {
+    public boolean checkCollision(Asteroide b) {
         if(!herido && b.getArea().overlaps(spr.getBoundingRectangle())){
         	// rebote
             if (xVel ==0) xVel += b.getXSpeed()/2;

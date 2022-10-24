@@ -6,14 +6,14 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 
-public class Bullet {
+public class Proyectil {
 
 	private int xSpeed;
 	private int ySpeed;
 	private boolean destroyed = false;
 	private Sprite spr;
 	    
-	    public Bullet(float x, float y, int xSpeed, int ySpeed, Texture tx) {
+	    public Proyectil(float x, float y, int xSpeed, int ySpeed, Texture tx) {
 	    	spr = new Sprite(tx);
 	    	spr.setPosition(x, y);
 	        this.xSpeed = xSpeed;
@@ -34,7 +34,7 @@ public class Bullet {
 	    	spr.draw(batch);
 	    }
 
-		public boolean checkCollision(Ball2 b2) {
+		public boolean checkCollision(Asteroide b2) {
 			if(spr.getBoundingRectangle().overlaps(b2.getArea())){
 				// Se destruyen ambos
 				this.destroyed = true;
