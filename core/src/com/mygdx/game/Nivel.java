@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.Texture;
 public abstract class Nivel {
     Nave nave;
     private int vidas = 3;
+    private Asteroides ast;
     Nivel () {}
 
     public void generarNivel() {
@@ -15,7 +16,7 @@ public abstract class Nivel {
                 Gdx.audio.newSound(Gdx.files.internal("pop-sound.mp3")));
         nave.setVidas(vidas);
 
-        generarAsteroides();
+        ast = generarAsteroides();
     }
 
     abstract Asteroides generarAsteroides();
