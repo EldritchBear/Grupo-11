@@ -8,16 +8,25 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class Proyectil {
 
-	final private int xSpeed;
-	final private int ySpeed;
+	private float xSpeed;
+	private float ySpeed;
 	private boolean destroyed = false;
 	final private Sprite spr;
-	    
-	    public Proyectil(float x, float y, int xSpeed, int ySpeed, Texture tx) {
+
+	private int rotacion;
+
+	    public Proyectil(float x, float y, int xSpeed, int ySpeed, Texture tx, int rr){
 	    	spr = new Sprite(tx);
-	    	spr.setPosition(x, y);
-	        this.xSpeed = xSpeed;
-	        this.ySpeed = ySpeed;
+			this.rotacion = rr;
+			spr.setRotation(rotacion);
+			if(Math.sin(Math.toRadians(rotacion)) > 0) {
+				this.xSpeed = -xSpeed - (float) (Math.cos(Math.toRadians(rotacion)));
+				this.ySpeed = ySpeed - (float) Math.sin((Math.toRadians(rotacion)));
+			}else{
+				this.xSpeed = xSpeed - (float) (Math.cos(Math.toRadians(rotacion)));
+				this.ySpeed = ySpeed - (float) Math.sin((Math.toRadians(rotacion)));
+			}
+			spr.setPosition(x, y);
 	    }
 	    public void update() {
 	        spr.setPosition(spr.getX()+xSpeed, spr.getY()+ySpeed);
@@ -27,7 +36,7 @@ public class Proyectil {
 	        if (spr.getY() < 0 || spr.getY()+spr.getHeight() > Gdx.graphics.getHeight()) {
 	        	destroyed = true;
 	        }
-	        
+
 	    }
 	    
 	    public void draw(SpriteBatch batch) {

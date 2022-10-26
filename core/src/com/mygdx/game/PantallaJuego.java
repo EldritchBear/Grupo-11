@@ -43,18 +43,19 @@ public class PantallaJuego implements Screen {
 		camera.setToOrtho(false, 800, 640);
 		//inicializar assets; musica de fondo y efectos de sonido
 		explosionSound = Gdx.audio.newSound(Gdx.files.internal("explosion.ogg"));
-		explosionSound.setVolume(1,0.5f);
-		gameMusic = Gdx.audio.newMusic(Gdx.files.internal("piano-loops.wav"));
+		explosionSound.setVolume(1,0.3f);
+		//gameMusic = Gdx.audio.newMusic(Gdx.files.internal("piano-loops.wav"));
+		gameMusic = Gdx.audio.newMusic(Gdx.files.internal("Puddles.wav"));
 		
 		gameMusic.setLooping(true);
-		gameMusic.setVolume(0.5f);
+		gameMusic.setVolume(0.3f);
 		gameMusic.play();
 		
 	    // ya está en clase Nivel
 	    nave = new Nave(Gdx.graphics.getWidth()/2-50,30,new Texture(Gdx.files.internal("MainShip3.png")),
-	    				Gdx.audio.newSound(Gdx.files.internal("hurt.ogg")), 
-	    				new Texture(Gdx.files.internal("Rocket2.png")), 
-	    				Gdx.audio.newSound(Gdx.files.internal("pop-sound.mp3"))); 
+	    				Gdx.audio.newSound(Gdx.files.internal("hurt.ogg")),
+	    				new Texture(Gdx.files.internal("Rocket2.png")),
+	    				Gdx.audio.newSound(Gdx.files.internal("pop-sound.mp3")));
         nave.setVidas(vidas);
         // crea asteroides, implementarlo en subclases de Nivel
         Random r = new Random();
@@ -88,7 +89,7 @@ public class PantallaJuego implements Screen {
 				b.update();
 				for (Asteroide ball : balls1) {
 					if (b.checkCollision(ball)) {
-						explosionSound.play();
+						explosionSound.play(0.15f);
 						if (ball.getHp() == 0) {
 							balls1.remove(ball);
 							balls2.remove(ball);
