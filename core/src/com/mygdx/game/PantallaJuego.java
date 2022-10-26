@@ -24,8 +24,8 @@ public class PantallaJuego implements Screen {
 	final private int velYAsteroides;
 	final private int cantAsteroides;
 	final private Nave nave;
-	final private  ArrayList<Asteroide> balls1 = new ArrayList<>();
-	final private  ArrayList<Asteroide> balls2 = new ArrayList<>();
+
+	final private asteroides nivel = new asteroides();
 	final private  ArrayList<Proyectil> balas = new ArrayList<>();
 
 
@@ -43,29 +43,29 @@ public class PantallaJuego implements Screen {
 		camera.setToOrtho(false, 800, 640);
 		//inicializar assets; musica de fondo y efectos de sonido
 		explosionSound = Gdx.audio.newSound(Gdx.files.internal("explosion.ogg"));
-		explosionSound.setVolume(1,0.5f);
-		gameMusic = Gdx.audio.newMusic(Gdx.files.internal("piano-loops.wav"));
+		explosionSound.setVolume(1,0.3f);
+		//gameMusic = Gdx.audio.newMusic(Gdx.files.internal("piano-loops.wav"));
+		gameMusic = Gdx.audio.newMusic(Gdx.files.internal("Puddles.wav"));
 		
 		gameMusic.setLooping(true);
-		gameMusic.setVolume(0.5f);
+		gameMusic.setVolume(0.3f);
 		gameMusic.play();
 		
 	    // ya está en clase Nivel
 	    nave = new Nave(Gdx.graphics.getWidth()/2-50,30,new Texture(Gdx.files.internal("MainShip3.png")),
-	    				Gdx.audio.newSound(Gdx.files.internal("hurt.ogg")), 
-	    				new Texture(Gdx.files.internal("Rocket2.png")), 
-	    				Gdx.audio.newSound(Gdx.files.internal("pop-sound.mp3"))); 
+	    				Gdx.audio.newSound(Gdx.files.internal("hurt.ogg")),
+	    				new Texture(Gdx.files.internal("Rocket2.png")),
+	    				Gdx.audio.newSound(Gdx.files.internal("pop-sound.mp3")));
         nave.setVidas(vidas);
         // crea asteroides, implementarlo en subclases de Nivel
         Random r = new Random();
 	    for (int i = 0; i < cantAsteroides; i++) {
-	        Asteroide bb = new Asteroide(r.nextInt(Gdx.graphics.getWidth()),
+	        Asteroides bb = new Asteroides(r.nextInt(Gdx.graphics.getWidth()),
 	  	            50+r.nextInt(Gdx.graphics.getHeight()-50),
 	  	            20+r.nextInt(10), velXAsteroides+r.nextInt(4), velYAsteroides+r.nextInt(4), 
 	  	            new Texture(Gdx.files.internal("aGreyMedium4.png")),
 					2);
-	  	    balls1.add(bb);
-	  	    balls2.add(bb);
+			nivel.agregarAsteroide(bb);
 	  	}
 	}
     
@@ -88,7 +88,7 @@ public class PantallaJuego implements Screen {
 				b.update();
 				for (Asteroide ball : balls1) {
 					if (b.checkCollision(ball)) {
-						explosionSound.play();
+						explosionSound.play(0.15f);
 						if (ball.getHp() == 0) {
 							balls1.remove(ball);
 							balls2.remove(ball);
