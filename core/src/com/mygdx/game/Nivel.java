@@ -34,6 +34,19 @@ public abstract class Nivel {
         }
     }
 
+    public boolean esGameOver(){
+        if(vidas == 0){
+            return true;
+        }
+        return false;
+    }
+
+    public boolean estaCompletado(){
+        if(objetos.isEmpty()){
+            return true;
+        }
+        return false;
+    }
     public int getVidas() {
         return this.nave.getVidas();
     }
