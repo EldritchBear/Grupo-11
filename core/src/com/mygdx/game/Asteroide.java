@@ -15,7 +15,7 @@ public class Asteroide implements Objeto {
     final private Sprite spr;
     private int hp;
 
-    public Asteroide(int x, int y, int size, int xSpeed, int ySpeed, int hp) {
+    public Asteroide(int x, int y, int size, int xSpeed, int ySpeed, Texture texture, int hp) {
         spr = new Sprite(new Texture(Gdx.files.internal("aGreyMedium4.png")));
         this.x = x;
 

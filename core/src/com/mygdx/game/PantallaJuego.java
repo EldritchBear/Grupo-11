@@ -20,7 +20,6 @@ public class PantallaJuego implements Screen {
 	final private Music gameMusic;
 	private int score;
 	final private int ronda;
-
 	private Nivel nivel = new NivelNormal();
 
 	public PantallaJuego(SpaceNavigation game, int ronda, int vidas, int score) {
@@ -63,6 +62,7 @@ public class PantallaJuego implements Screen {
 		nave.draw(batch, this);
 		////////
 
+		//el jugador se quedo sin vidas
 		if (nivel.esGameOver()) {
 		if (score > game.getHighScore())
 			game.setHighScore(score);
