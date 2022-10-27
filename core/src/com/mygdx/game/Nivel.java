@@ -4,7 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 
 public abstract class Nivel {
-    Nave nave;
+    private Nave nave;
     private int vidas = 3;
     Asteroides asteroides;
     Nivel () {}
@@ -20,4 +20,8 @@ public abstract class Nivel {
     }
 
     abstract Asteroides generarAsteroides();
+
+    public Nave getNaveAbs(){
+        return nave;
+    }
 }

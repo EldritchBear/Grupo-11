@@ -24,8 +24,7 @@ public class PantallaJuego implements Screen {
 	final private int velYAsteroides;
 	final private int cantAsteroides;
 	final private Nave nave;
-
-	final private asteroides nivel = new asteroides();
+	final private Nivel nivel;
 	final private  ArrayList<Proyectil> balas = new ArrayList<>();
 
 
@@ -50,23 +49,12 @@ public class PantallaJuego implements Screen {
 		gameMusic.setLooping(true);
 		gameMusic.setVolume(0.3f);
 		gameMusic.play();
-		
-	    // ya está en clase Nivel
-	    nave = new Nave(Gdx.graphics.getWidth()/2-50,30,new Texture(Gdx.files.internal("MainShip3.png")),
-	    				Gdx.audio.newSound(Gdx.files.internal("hurt.ogg")),
-	    				new Texture(Gdx.files.internal("Rocket2.png")),
-	    				Gdx.audio.newSound(Gdx.files.internal("pop-sound.mp3")));
-        nave.setVidas(vidas);
-        // crea asteroides, implementarlo en subclases de Nivel
-        Random r = new Random();
-	    for (int i = 0; i < cantAsteroides; i++) {
-	        Asteroides bb = new Asteroides(r.nextInt(Gdx.graphics.getWidth()),
-	  	            50+r.nextInt(Gdx.graphics.getHeight()-50),
-	  	            20+r.nextInt(10), velXAsteroides+r.nextInt(4), velYAsteroides+r.nextInt(4), 
-	  	            new Texture(Gdx.files.internal("aGreyMedium4.png")),
-					2);
-			nivel.agregarAsteroide(bb);
-	  	}
+
+		if (this.ronda % 3 == 0){
+			nivel = new NivelNormal();
+			nivel.generarNivel();
+			nave = nivel.getNave;
+		}
 	}
     
 	public void dibujaEncabezado() {
