@@ -15,8 +15,8 @@ public class Asteroide implements Objeto {
     final private Sprite spr;
     private int hp;
 
-    public Asteroide(int x, int y, int size, int xSpeed, int ySpeed, Texture tx, int hp) {
-        spr = new Sprite(tx);
+    public Asteroide(int x, int y, int size, int xSpeed, int ySpeed, int hp) {
+        spr = new Sprite(new Texture(Gdx.files.internal("aGreyMedium4.png")));
         this.x = x;
 
         //validar que borde de esfera no quede fuera
