@@ -21,9 +21,4 @@ public class NivelNormal extends Nivel {
             asteroides.añadirAListas(bb);
         }
     }
-
-    public Nave getNave(){
-        Nave aux = getNave();
-        return aux;
-    }
 }
