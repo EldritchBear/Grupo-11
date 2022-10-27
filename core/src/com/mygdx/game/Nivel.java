@@ -22,6 +22,10 @@ public abstract class Nivel {
     }
 
     public void render() {
+        this.update();
+    }
+
+    public void update() {
         ArrayList destruidos = new ArrayList();
         for (Object objeto : objetos) {
             ((Objeto)objeto).update();
