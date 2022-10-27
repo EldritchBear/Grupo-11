@@ -6,6 +6,7 @@ public interface Objeto {
     public void update();
     public boolean isDestroyed();
     public void checkCollision();
+    public void draw(SpriteBatch batch);
     // debe implementar cada caso en donde el objeto colisiona con otro
     public void colisionado(Asteroide asteroide);
     public void colisionado(Nave nave);
