@@ -2,6 +2,7 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import java.util.ArrayList;
 
@@ -21,7 +22,16 @@ public abstract class Nivel {
         generarAsteroides(this.objetos);
     }
 
-    public void render() {
+    public void render(SpriteBatch batch) {
+        this.update();
+
+        for (Object b : objetos) {
+            ((Objeto)b).draw(batch);
+        }
+        nave.draw(batch);
+    }
+
+    public void update() {
         ArrayList destruidos = new ArrayList();
         for (Object objeto : objetos) {
             ((Objeto)objeto).update();

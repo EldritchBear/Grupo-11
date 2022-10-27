@@ -24,7 +24,7 @@ public class Nave {
     private int rotacion = 0;
     private Armamento arma;
     
-    public Nave(int x, int y, Texture tx, Sound soundChoque) {
+    public Nave(int x, int y, Texture tx, Sound soundChoque, Texture texture, Sound sound) {
     	sonidoHerido = soundChoque;
     	spr = new Sprite(tx);
     	spr.setPosition(x, y);
@@ -32,7 +32,7 @@ public class Nave {
     	spr.setBounds(x, y, 45, 45);
         arma = new Armamento(1,40,2);
     }
-    public void draw(SpriteBatch batch, PantallaJuego juego) {
+    public void draw(SpriteBatch batch) {
         float x = spr.getX();
         float y = spr.getY();
         if (!herido) {
