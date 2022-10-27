@@ -15,11 +15,13 @@ public abstract class Nivel {
         nave.setVidas(vidas);
 
         this.asteroides = generarAsteroides();
+
+
     }
 
     abstract Asteroides generarAsteroides();
 
-    public Nave getNaveAbs(){
+    public Nave getNave(){
         return nave;
     }
 }

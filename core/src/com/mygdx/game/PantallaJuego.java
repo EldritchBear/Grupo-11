@@ -19,13 +19,14 @@ public class PantallaJuego implements Screen {
 	final private Sound explosionSound;
 	final private Music gameMusic;
 	private int score;
-	final private int ronda;
-	final private int velXAsteroides;
-	final private int velYAsteroides;
-	final private int cantAsteroides;
-	final private Nave nave;
-	final private Nivel nivel;
-	final private  ArrayList<Proyectil> balas = new ArrayList<>();
+	private int ronda;
+	private int velXAsteroides;
+	private int velYAsteroides;
+	private int cantAsteroides;
+	private Nave nave;
+	private Nivel nivel;
+	private  ArrayList<Proyectil> balas = new ArrayList<>();
+	private ArrayList<Asteroides> balls;
 
 
 	public PantallaJuego(SpaceNavigation game, int ronda, int vidas, int score,  
@@ -53,7 +54,7 @@ public class PantallaJuego implements Screen {
 		if (this.ronda % 3 == 0){
 			nivel = new NivelNormal();
 			nivel.generarNivel();
-			nave = nivel.getNave;
+			nave = nivel.getNave();
 		}
 	}
     
@@ -74,12 +75,12 @@ public class PantallaJuego implements Screen {
 			for (int i = 0; i < balas.size(); i++) {
 				Proyectil b = balas.get(i);
 				b.update();
-				for (Asteroide ball : balls1) {
+				balls = .getBalls();
+				for (Asteroide ball : balls) {
 					if (b.checkCollision(ball)) {
 						explosionSound.play(0.15f);
 						if (ball.getHp() == 0) {
-							balls1.remove(ball);
-							balls2.remove(ball);
+							.removerDeLista(ball);
 							score +=10;
 							break;
 						}
