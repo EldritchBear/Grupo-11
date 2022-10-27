@@ -3,15 +3,15 @@ package com.mygdx.game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 public class NivelNormal extends Nivel {
-    public Asteroides generarAsteroides(){
+    public void generarAsteroides(ArrayList objetos){
         int cantAsteroides = 5;
         int velXAsteroides = 1;
         int velYAsteroides = 1;
         Random r = new Random();
-        Asteroides asteroides = new Asteroides();
         for (int i = 0; i < cantAsteroides; i++) { // usar subclase de Asteroide
 //            Asteroide bb = new Asteroide(r.nextInt(Gdx.graphics.getWidth()),
 //                    50+r.nextInt(Gdx.graphics.getHeight()-50),
@@ -19,6 +19,5 @@ public class NivelNormal extends Nivel {
 //                    new Texture(Gdx.files.internal("aGreyMedium4.png")),
 //                    2);
         }
-        return asteroides;
     }
 }

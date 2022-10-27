@@ -7,13 +7,12 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 
 
-public abstract class Asteroide implements Colision{
+public class Asteroide implements Objeto {
     private int x;
     private int y;
     private int xSpeed;
     private int ySpeed;
     final private Sprite spr;
-
     private int hp;
 
     public Asteroide(int x, int y, int size, int xSpeed, int ySpeed, Texture tx, int hp) {
@@ -30,8 +29,8 @@ public abstract class Asteroide implements Colision{
         if (y+size > Gdx.graphics.getHeight())this.y = y-size;
 
         spr.setPosition(x, y);
-        this.setXSpeed(xSpeed);
-        this.setySpeed(ySpeed);
+        this.xSpeed = xSpeed;
+        this.ySpeed = ySpeed;
         this.hp = hp;
     }
     public void update() {
@@ -52,19 +51,32 @@ public abstract class Asteroide implements Colision{
     	spr.draw(batch);
     }
     
-    public void checkCollision(Asteroide b2) {
-        if(spr.getBoundingRectangle().overlaps(b2.spr.getBoundingRectangle())){
-        	// rebote
-            if (getXSpeed() ==0) setXSpeed(getXSpeed() + b2.getXSpeed()/2);
-            if (b2.getXSpeed() ==0) b2.setXSpeed(b2.getXSpeed() + getXSpeed()/2);
-        	setXSpeed(- getXSpeed());
-            b2.setXSpeed(-b2.getXSpeed());
-            
-            if (getySpeed() ==0) setySpeed(getySpeed() + b2.getySpeed()/2);
-            if (b2.getySpeed() ==0) b2.setySpeed(b2.getySpeed() + getySpeed()/2);
-            setySpeed(- getySpeed());
-            b2.setySpeed(- b2.getySpeed()); 
-        }
+    public void checkCollision() {
+    // se recorre la lista de objetos, y luego se llama colisionado() en el asteroide, pasando el otro objeto como parámetro
+    }
+    public void colisionado(Asteroide asteroide) {
+        if (getXSpeed() == 0) setXSpeed(getXSpeed() + asteroide.getXSpeed()/2);
+        if (asteroide.getXSpeed() == 0) asteroide.setXSpeed(asteroide.getXSpeed() + getXSpeed()/2);
+        setXSpeed(-getXSpeed());
+        asteroide.setXSpeed(-asteroide.getXSpeed());
+
+        if (getySpeed() == 0) setySpeed(getySpeed() + asteroide.getySpeed()/2);
+        if (asteroide.getySpeed() == 0) asteroide.setySpeed(asteroide.getySpeed() + getySpeed()/2);
+        setySpeed(- getySpeed());
+        asteroide.setySpeed(- asteroide.getySpeed());
+    }
+
+    public void colisionado(Nave nave) {
+        this.hp = 0;
+    }
+
+    public void colisionado(Proyectil proyectil) {
+        this.quitarHp(proyectil.getDamage());
+    }
+
+    public boolean isDestroyed() {
+        if (this.hp > 0) return true;
+        return false;
     }
 
     public void quitarHp(int i) {
@@ -85,6 +97,4 @@ public abstract class Asteroide implements Colision{
 	public void setySpeed(int ySpeed) {
 		this.ySpeed = ySpeed;
 	}
-	
-    
 }

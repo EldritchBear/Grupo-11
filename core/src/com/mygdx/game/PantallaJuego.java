@@ -25,7 +25,7 @@ public class PantallaJuego implements Screen {
 	final private int cantAsteroides;
 	final private Nave nave;
 
-	final private asteroides nivel = new asteroides();
+	final private Nivel nivel = new NivelNormal();
 	final private  ArrayList<Proyectil> balas = new ArrayList<>();
 
 
@@ -57,15 +57,6 @@ public class PantallaJuego implements Screen {
 	    				new Texture(Gdx.files.internal("Rocket2.png")),
 	    				Gdx.audio.newSound(Gdx.files.internal("pop-sound.mp3")));
         nave.setVidas(vidas);
-        // crea asteroides, implementarlo en subclases de Nivel
-        Random r = new Random();
-	    for (int i = 0; i < cantAsteroides; i++) {
-	        Asteroides bb = new Asteroides(r.nextInt(Gdx.graphics.getWidth()),
-	  	            50+r.nextInt(Gdx.graphics.getHeight()-50),
-	  	            20+r.nextInt(10), velXAsteroides+r.nextInt(4), velYAsteroides+r.nextInt(4), 
-	  	            new Texture(Gdx.files.internal("aGreyMedium4.png")),
-					2);
-			nivel.agregarAsteroide(bb);
 	  	}
 	}
     
@@ -108,35 +99,12 @@ public class PantallaJuego implements Screen {
 		      for (Asteroide ball : balls1) {
 		          ball.update();
 		      }
-		      //colisiones entre asteroides y sus rebotes  
-		      for (int i=0;i<balls1.size();i++) {
-		    	Asteroide ball1 = balls1.get(i);
-		        for (int j=0;j<balls2.size();j++) {
-		          Asteroide asteroide = balls2.get(j);
-		          if (i<j) {
-		        	  ball1.checkCollision(asteroide);
-		     
-		          }
-		        }
-		      } 
 	      }
 	      //dibujar balas
 	     for (Proyectil b : balas) {
 	          b.draw(batch);
 	      }
 	      nave.draw(batch, this);
-	      //dibujar asteroides y manejar colision con nave
-	      for (int i = 0; i < balls1.size(); i++) {
-	    	    Asteroide b=balls1.get(i);
-	    	    b.draw(batch);
-		          //perdió vida o game over
-	              if (nave.checkCollision(b)) {
-		            //asteroide se destruye con el choque             
-	            	 balls1.remove(i);
-	            	 balls2.remove(i);
-	            	 i--;
-              }   	  
-  	        }
 	      
 	      if (nave.estaDestruido()) {
   			if (score > game.getHighScore())

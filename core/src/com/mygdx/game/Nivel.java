@@ -3,10 +3,12 @@ package com.mygdx.game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 
+import java.util.ArrayList;
+
 public abstract class Nivel {
     Nave nave;
+    ArrayList objetos = new ArrayList();
     private int vidas = 3;
-    Asteroides asteroides;
     Nivel () {}
 
     public void generarNivel() {
@@ -16,8 +18,21 @@ public abstract class Nivel {
                 Gdx.audio.newSound(Gdx.files.internal("pop-sound.mp3")));
         nave.setVidas(vidas);
 
-        this.asteroides = generarAsteroides();
+        generarAsteroides(this.objetos);
     }
 
-    abstract Asteroides generarAsteroides();
+    public void render() {
+        ArrayList destruidos = new ArrayList();
+        for (Object objeto : objetos) {
+            ((Objeto)objeto).update();
+            if (((Objeto)objeto).isDestroyed()) {
+                destruidos.add(objeto);
+            }
+        }
+        for (Object objeto : destruidos) {
+            objetos.remove(objeto);
+        }
+    }
+
+    abstract void generarAsteroides(ArrayList objetos);
 }
