@@ -34,5 +34,9 @@ public abstract class Nivel {
         }
     }
 
+    public int getVidas() {
+        return this.nave.getVidas();
+    }
+
     abstract void generarAsteroides(ArrayList objetos);
 }

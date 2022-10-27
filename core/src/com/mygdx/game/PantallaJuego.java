@@ -20,23 +20,13 @@ public class PantallaJuego implements Screen {
 	final private Music gameMusic;
 	private int score;
 	final private int ronda;
-	final private int velXAsteroides;
-	final private int velYAsteroides;
-	final private int cantAsteroides;
-	final private Nave nave;
 
-	final private Nivel nivel = new NivelNormal();
-	final private  ArrayList<Proyectil> balas = new ArrayList<>();
+	private Nivel nivel = new NivelNormal();
 
-
-	public PantallaJuego(SpaceNavigation game, int ronda, int vidas, int score,  
-			int velXAsteroides, int velYAsteroides, int cantAsteroides) {
+	public PantallaJuego(SpaceNavigation game, int ronda, int vidas, int score) {
 		this.game = game;
 		this.ronda = ronda;
 		this.score = score;
-		this.velXAsteroides = velXAsteroides;
-		this.velYAsteroides = velYAsteroides;
-		this.cantAsteroides = cantAsteroides;
 		
 		batch = game.getBatch();
 		OrthographicCamera camera = new OrthographicCamera();
@@ -50,19 +40,12 @@ public class PantallaJuego implements Screen {
 		gameMusic.setLooping(true);
 		gameMusic.setVolume(0.3f);
 		gameMusic.play();
-		
-	    // ya está en clase Nivel
-	    nave = new Nave(Gdx.graphics.getWidth()/2-50,30,new Texture(Gdx.files.internal("MainShip3.png")),
-	    				Gdx.audio.newSound(Gdx.files.internal("hurt.ogg")),
-	    				new Texture(Gdx.files.internal("Rocket2.png")),
-	    				Gdx.audio.newSound(Gdx.files.internal("pop-sound.mp3")));
-        nave.setVidas(vidas);
-	  	}
+
 	}
-    
+
 	public void dibujaEncabezado() {
-		CharSequence str = "Vidas: "+nave.getVidas()+" Ronda: "+ronda;
-		game.getFont().getData().setScale(2f);		
+		CharSequence str = "Vidas: "+nivel.getVidas()+" Nivel: "+ronda;
+		game.getFont().getData().setScale(2f);
 		game.getFont().draw(batch, str, 10, 30);
 		game.getFont().draw(batch, "Score:"+this.score, Gdx.graphics.getWidth()-150, 30);
 		game.getFont().draw(batch, "HighScore:"+game.getHighScore(), Gdx.graphics.getWidth()/2-100, 30);
@@ -72,58 +55,31 @@ public class PantallaJuego implements Screen {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		batch.begin();
 		dibujaEncabezado();
-		if (!nave.estaHerido()) {
-			// colisiones entre balas y asteroides y su destruccion
-			for (int i = 0; i < balas.size(); i++) {
-				Proyectil b = balas.get(i);
-				b.update();
-				for (Asteroide ball : balls1) {
-					if (b.checkCollision(ball)) {
-						explosionSound.play(0.15f);
-						if (ball.getHp() == 0) {
-							balls1.remove(ball);
-							balls2.remove(ball);
-							score +=10;
-							break;
-						}
-					}
-				}
+		//dibujar balas
+		//////// mover a Nivel
+		for (Proyectil b : balas) {
+		  b.draw(batch);
+		}
+		nave.draw(batch, this);
+		////////
 
-				//   b.draw(batch);
-				if (b.isDestroyed()) {
-					balas.remove(b);
-					i--; //para no saltarse 1 tras eliminar del arraylist
-				}
-		      }
-		      //actualizar movimiento de asteroides dentro del area
-		      for (Asteroide ball : balls1) {
-		          ball.update();
-		      }
-	      }
-	      //dibujar balas
-	     for (Proyectil b : balas) {
-	          b.draw(batch);
-	      }
-	      nave.draw(batch, this);
-	      
-	      if (nave.estaDestruido()) {
-  			if (score > game.getHighScore())
-  				game.setHighScore(score);
-	    	Screen ss = new PantallaGameOver(game);
-  			ss.resize(1200, 800);
-  			game.setScreen(ss);
-  			dispose();
-  		  }
-	      batch.end();
-	      //nivel completado
-	      if (balls1.size()==0) {
-			Screen ss = new PantallaJuego(game,ronda+1, nave.getVidas(), score, 
-					velXAsteroides+3, velYAsteroides+3, cantAsteroides+10);
-			ss.resize(1200, 800);
-			game.setScreen(ss);
-			dispose();
-		  }
-	    	 
+		if (nivel.esGameOver()) {
+		if (score > game.getHighScore())
+			game.setHighScore(score);
+		Screen ss = new PantallaGameOver(game);
+		ss.resize(1200, 800);
+		game.setScreen(ss);
+		dispose();
+		}
+		batch.end();
+		//nivel completado
+		if (nivel.estaCompletado()) {
+		Screen ss = new PantallaJuego(game,ronda+1, nivel.getVidas(), score);
+		ss.resize(1200, 800);
+		game.setScreen(ss);
+		dispose();
+		}
+
 	}
     
     public void agregarBala(Proyectil bb) {

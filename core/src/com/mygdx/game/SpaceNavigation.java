@@ -46,7 +46,4 @@ public class SpaceNavigation extends Game {
 	public void setHighScore(int highScore) {
 		this.highScore = highScore;
 	}
-	
-	
-
 }
