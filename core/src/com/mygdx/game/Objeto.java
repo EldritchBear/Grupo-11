@@ -11,4 +11,5 @@ public interface Objeto {
     public void colisionado(Asteroide asteroide);
     public void colisionado(Nave nave);
     public void colisionado(Proyectil proyectil);
+    public void draw(SpriteBatch batch);
 }

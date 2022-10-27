@@ -54,13 +54,6 @@ public class PantallaJuego implements Screen {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		batch.begin();
 		dibujaEncabezado();
-		//dibujar balas
-		//////// mover a Nivel
-		for (Proyectil b : balas) {
-		  b.draw(batch);
-		}
-		nave.draw(batch, this);
-		////////
 
 		//el jugador se quedo sin vidas
 		if (nivel.esGameOver()) {
