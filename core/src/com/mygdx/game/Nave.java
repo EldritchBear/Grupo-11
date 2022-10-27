@@ -18,26 +18,19 @@ public class Nave {
     private float yVel = 0;
     final private Sprite spr;
     final private Sound sonidoHerido;
-    final private Sound soundBala;
-    final private Texture txBala;
     private boolean herido = false;
     final private int tiempoHeridoMax=50;
     private int tiempoHerido;
     private int rotacion = 0;
-
-    private int cdBala;
-
-    final private int maxCd = 40;
+    private Armamento arma;
     
-    public Nave(int x, int y, Texture tx, Sound soundChoque, Texture txBala, Sound soundBala) {
+    public Nave(int x, int y, Texture tx, Sound soundChoque) {
     	sonidoHerido = soundChoque;
-    	this.soundBala = soundBala;
-    	this.txBala = txBala;
     	spr = new Sprite(tx);
     	spr.setPosition(x, y);
     	//spr.setOriginCenter();
     	spr.setBounds(x, y, 45, 45);
-
+        arma = new Armamento(1,40,2);
     }
     public void draw(SpriteBatch batch, PantallaJuego juego) {
         float x = spr.getX();
@@ -92,15 +85,12 @@ public class Nave {
             if (tiempoHerido <= 0) herido = false;
         }
         // disparo
-        if (cdBala == 0) {
-            if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
-                Proyectil bala = new Proyectil(spr.getX() + spr.getWidth() / 2 - 5, spr.getY() + spr.getHeight() - 5, 3, 3, txBala, rotacion);
-                juego.agregarBala(bala);
-                soundBala.play(0.3f);
-                cdBala = maxCd;
-            }
-        }else{cdBala--;}
-       
+        if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
+            //Proyectil bala = new Proyectil(spr.getX() + spr.getWidth() / 2 - 5, spr.getY() + spr.getHeight() - 5, 3, 3, txBala, rotacion);
+            arma.disparar(spr.getX() + spr.getWidth() / 2 - 5, spr.getY() + spr.getHeight() - 5,rotacion);
+            //soundBala.play(0.3f);              esto esta en arma.disparar pero por si no funciona xd
+            //juego.agregarBala(bala);           esto se debería conservar? no? no creo
+        }
     }
       
     public boolean checkCollision(Asteroide b) {
