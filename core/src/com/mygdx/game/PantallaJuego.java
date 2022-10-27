@@ -19,12 +19,12 @@ public class PantallaJuego implements Screen {
 	final private Sound explosionSound;
 	final private Music gameMusic;
 	private int score;
-	final private int ronda;
-	final private int velXAsteroides;
-	final private int velYAsteroides;
-	final private int cantAsteroides;
-	final private Nave nave;
-	final private Nivel nivel;
+	private int ronda;
+	private int velXAsteroides;
+	private int velYAsteroides;
+	private int cantAsteroides;
+	private Nave nave;
+	private Nivel nivel;
 	final private  ArrayList<Proyectil> balas = new ArrayList<>();
 
 
@@ -53,7 +53,7 @@ public class PantallaJuego implements Screen {
 		if (this.ronda % 3 == 0){
 			nivel = new NivelNormal();
 			nivel.generarNivel();
-			nave = nivel.getNave;
+			nave = nivel.getNaveAbs();
 		}
 	}
     

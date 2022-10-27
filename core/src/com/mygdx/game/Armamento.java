@@ -24,7 +24,7 @@ public class Armamento {
 
     public void disparar(float x, float y, int rotacion){
         if (cdBala == 0){
-            Proyectil bala = new Proyectil(x, y, velPr, rotacion,dmg,velAt);
+            Proyectil bala = new Proyectil(x, y, velPr, rotacion,dmg);
             cdBala = velAt;
             soundBala.play(0.3f);
         }else{cdBala--;}

@@ -16,7 +16,6 @@ public class NivelNormal extends Nivel {
 //            Asteroide bb = new Asteroide(r.nextInt(Gdx.graphics.getWidth()),
 //                    50+r.nextInt(Gdx.graphics.getHeight()-50),
 //                    20+r.nextInt(10), velXAsteroides+r.nextInt(4), velYAsteroides+r.nextInt(4),
-//                    new Texture(Gdx.files.internal("aGreyMedium4.png")),
 //                    2);
         }
         return asteroides;
