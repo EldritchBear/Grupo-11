@@ -74,10 +74,6 @@ public class PantallaJuego implements Screen {
 		}
 
 	}
-    
-    public void agregarBala(Proyectil bb) {
-		balas.add(bb);
-    }
 	
 	@Override
 	public void show() {
