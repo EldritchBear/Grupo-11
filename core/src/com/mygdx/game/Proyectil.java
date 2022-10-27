@@ -15,17 +15,22 @@ public class Proyectil {
 
 	private int rotacion;
 
-	    public Proyectil(float x, float y, int xSpeed, int ySpeed, Texture tx, int rr){
+	    public Proyectil(float x, float y, int velPr, int rr, int dmg, int velAt ){
+			Texture tx = new Texture(Gdx.files.internal("Rocket2.png"));
 	    	spr = new Sprite(tx);
 			this.rotacion = rr;
-			spr.setRotation(rotacion);
-			if(Math.sin(Math.toRadians(rotacion)) > 0) {
-				this.xSpeed = -xSpeed - (float) (Math.cos(Math.toRadians(rotacion)));
-				this.ySpeed = ySpeed - (float) Math.sin((Math.toRadians(rotacion)));
-			}else{
-				this.xSpeed = xSpeed - (float) (Math.cos(Math.toRadians(rotacion)));
-				this.ySpeed = ySpeed - (float) Math.sin((Math.toRadians(rotacion)));
+			spr.setRotation(rotacion); //probar con grados y no radianes, creo que va a ser más sano
+			if(Math.sin(Math.toRadians(rotacion)) > 0 && Math.sin(Math.toRadians(rotacion)) < 1) {
+				this.xSpeed = -xSpeed + (float)(Math.sin(Math.toRadians(rotacion)));
+				this.ySpeed = ySpeed - (float) (Math.cos((Math.toRadians(rotacion)))*0.1);
+			}else if (Math.sin(Math.toRadians(rotacion)) < 1 && Math.sin(Math.toRadians(rotacion)) < 0){
+				this.xSpeed = xSpeed - (float) (Math.sin(Math.toRadians(rotacion)));
+				this.ySpeed = ySpeed + (float) (Math.cos(Math.toRadians(rotacion)));
+			}else if (Math.sin(Math.toRadians(rotacion)) == 0){
+				this.xSpeed = 0;
+				this.ySpeed = ySpeed;
 			}
+
 			spr.setPosition(x, y);
 	    }
 	    public void update() {
