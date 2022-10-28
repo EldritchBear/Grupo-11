@@ -42,6 +42,10 @@ public abstract class Nivel {
         ListaDeObjetos.eliminarCola();
     }
 
+    public void agregarBala(Proyectil bb) {
+        objetos.add(bb);
+    }
+
     public boolean esGameOver(){
         if(vidas == 0){
             return true;
