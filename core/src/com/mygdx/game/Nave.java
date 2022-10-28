@@ -7,10 +7,13 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Rectangle;
+
+import java.lang.reflect.Method;
+import java.util.ArrayList;
 
 
-
-public class Nave {
+public class Nave implements Objeto {
 	
 	private boolean destruida = false;
     private int vidas = 3;
@@ -33,15 +36,13 @@ public class Nave {
         arma = new Armamento(1,40,2);
     }
     public void draw(SpriteBatch batch) {
+        spr.draw(batch);
+    }
+
+    public void update() {
         float x = spr.getX();
         float y = spr.getY();
         if (!herido) {
-            // que se mueva con teclado
-            //if (Gdx.input.isKeyPressed(Input.Keys.A)) xVel -= 0.1;
-            //if (Gdx.input.isKeyPressed(Input.Keys.D)) xVel += 0.1;
-            //if (Gdx.input.isKeyPressed(Input.Keys.S)) yVel -= 0.1;
-            //if (Gdx.input.isKeyPressed(Input.Keys.W)) yVel += 0.1;
-
             if (Gdx.input.isKeyPressed(Input.Keys.A)) spr.setRotation(++rotacion);
             if (Gdx.input.isKeyPressed(Input.Keys.D)) spr.setRotation(--rotacion);
 
@@ -54,7 +55,6 @@ public class Nave {
                 if (yVel > 2.25f) {
                     yVel = 2.25f;
                 }
-                System.out.println(rotacion + " - " + Math.sin(Math.toRadians(rotacion)) + " - " + Math.cos(Math.toRadians(rotacion)));
             }
             if (Gdx.input.isKeyPressed(Input.Keys.S)) {
                 xVel += Math.sin(Math.toRadians(rotacion)) * 0.1;
@@ -75,11 +75,8 @@ public class Nave {
                 yVel *= -1;
 
             spr.setPosition(x + xVel, y + yVel);
-
-            spr.draw(batch);
         } else {
             spr.setX(spr.getX() + MathUtils.random(-2, 2));
-            spr.draw(batch);
             spr.setX(x);
             tiempoHerido--;
             if (tiempoHerido <= 0) herido = false;
@@ -89,49 +86,60 @@ public class Nave {
             //Proyectil bala = new Proyectil(spr.getX() + spr.getWidth() / 2 - 5, spr.getY() + spr.getHeight() - 5, 3, 3, txBala, rotacion);
             arma.disparar(spr.getX() + spr.getWidth() / 2 - 5, spr.getY() + spr.getHeight() - 5,rotacion);
             //soundBala.play(0.3f);              esto esta en arma.disparar pero por si no funciona xd
-            //juego.agregarBala(bala);           esto se debería conservar? no? no creo
         }
     }
-      
-    public boolean checkCollision(Asteroide b) {
-        if(!herido && b.getArea().overlaps(spr.getBoundingRectangle())){
-        	// rebote
-            if (xVel ==0) xVel += b.getXSpeed()/2;
-            if (b.getXSpeed() ==0) b.setXSpeed(b.getXSpeed() + (int)xVel/2);
-            xVel = - xVel;
-            b.setXSpeed(-b.getXSpeed());
-            
-            if (yVel ==0) yVel += b.getySpeed()/2;
-            if (b.getySpeed() ==0) b.setySpeed(b.getySpeed() + (int)yVel/2);
-            yVel = - yVel;
-            b.setySpeed(- b.getySpeed());
-            // despegar sprites
-      /*      int cont = 0;
-            while (b.getArea().overlaps(spr.getBoundingRectangle()) && cont<xVel) {
-               spr.setX(spr.getX()+Math.signum(xVel));
-            }   */
-        	//actualizar vidas y herir
-            vidas--;
-            herido = true;
-  		    tiempoHerido=tiempoHeridoMax;
-  		    sonidoHerido.play();
-            if (vidas<=0) 
-          	    destruida = true; 
-            return true;
+    public void checkCollision() {
+        ArrayList<Objeto> lista = ListaDeObjetos.getLista();
+        if (lista == null) return;
+        for (Objeto objeto : lista) {
+            if (objeto == this) continue;
+            if (this.getArea().overlaps(objeto.getArea())) {
+                // https://www.baeldung.com/java-method-reflection
+                try {
+                    Method method = this.getClass().getMethod("colisionado", objeto.getClass());
+                    method.invoke(this, objeto);
+                } catch (Exception e) {
+                    System.out.println(e.getMessage());
+                    continue;
+                }
+            }
         }
-        return false;
+    }
+    public void colisionado(Asteroide b) {
+        System.out.println("colision con asteroide");
+        if (xVel ==0) xVel += b.getXSpeed()/2;
+        if (b.getXSpeed() ==0) b.setXSpeed(b.getXSpeed() + (int)xVel/2);
+        xVel = - xVel;
+        b.setXSpeed(-b.getXSpeed());
+
+        if (yVel ==0) yVel += b.getySpeed()/2;
+        if (b.getySpeed() ==0) b.setySpeed(b.getySpeed() + (int)yVel/2);
+        yVel = - yVel;
+        b.setySpeed(- b.getySpeed());
+        //actualizar vidas y herir
+        this.vidas--;
+        herido = true;
+        tiempoHerido=tiempoHeridoMax;
+        sonidoHerido.play();
+        if (vidas<=0)
+            destruida = true;
+    }
+    public void colisionado(Nave nave) {
+        // imposible
+    }
+    public void colisionado(Proyectil proyectil) {
+        // no importa
     }
     
-    public boolean estaDestruido() {
+    public boolean isDestroyed() {
        return !herido && destruida;
     }
     public boolean estaHerido() {
  	   return herido;
     }
-    
+    public Rectangle getArea() {
+        return spr.getBoundingRectangle();
+    }
     public int getVidas() {return vidas;}
-//    public boolean isDestruida() {return destruida;}
-//    public int getX() {return (int) spr.getX();}
-//    public int getY() {return (int) spr.getY();}
 	public void setVidas(int vidas2) {vidas = vidas2;}
 }

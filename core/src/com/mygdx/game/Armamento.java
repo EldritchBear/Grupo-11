@@ -27,6 +27,7 @@ public class Armamento {
             Proyectil bala = new Proyectil(x, y, velPr, rotacion,dmg);
             cdBala = velAt;
             soundBala.play(0.3f);
+            ListaDeObjetos.getCola().add(bala);
         }else{cdBala--;}
     }
 

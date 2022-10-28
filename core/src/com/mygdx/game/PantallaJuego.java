@@ -20,12 +20,13 @@ public class PantallaJuego implements Screen {
 	final private Music gameMusic;
 	private int score;
 	final private int ronda;
-	private Nivel nivel = new NivelNormal();
+	private Nivel nivel;
 
 	public PantallaJuego(SpaceNavigation game, int ronda, int vidas, int score) {
 		this.game = game;
 		this.ronda = ronda;
 		this.score = score;
+		this.nivel = new NivelNormal();
 		
 		batch = game.getBatch();
 		OrthographicCamera camera = new OrthographicCamera();
@@ -33,13 +34,12 @@ public class PantallaJuego implements Screen {
 		//inicializar assets; musica de fondo y efectos de sonido
 		explosionSound = Gdx.audio.newSound(Gdx.files.internal("explosion.ogg"));
 		explosionSound.setVolume(1,0.3f);
-		//gameMusic = Gdx.audio.newMusic(Gdx.files.internal("piano-loops.wav"));
-		gameMusic = Gdx.audio.newMusic(Gdx.files.internal("Puddles.wav"));
+		gameMusic = Gdx.audio.newMusic(Gdx.files.internal("piano-loops.wav"));
+		//gameMusic = Gdx.audio.newMusic(Gdx.files.internal("Puddles.wav"));
 		
 		gameMusic.setLooping(true);
 		gameMusic.setVolume(0.3f);
 		gameMusic.play();
-
 	}
 
 	public void dibujaEncabezado() {
@@ -55,23 +55,25 @@ public class PantallaJuego implements Screen {
 		batch.begin();
 		dibujaEncabezado();
 
+		nivel.render(batch);
+
 		//el jugador se quedo sin vidas
 		if (nivel.esGameOver()) {
 		if (score > game.getHighScore())
 			game.setHighScore(score);
-		Screen ss = new PantallaGameOver(game);
-		ss.resize(1200, 800);
-		game.setScreen(ss);
-		dispose();
+			Screen ss = new PantallaGameOver(game);
+			ss.resize(1200, 800);
+			game.setScreen(ss);
+			dispose();
 		}
 		batch.end();
 		//nivel completado
-		if (nivel.estaCompletado()) {
-		Screen ss = new PantallaJuego(game,ronda+1, nivel.getVidas(), score);
-		ss.resize(1200, 800);
-		game.setScreen(ss);
-		dispose();
-		}
+//		if (nivel.estaCompletado()) {
+//			Screen ss = new PantallaJuego(game,ronda+1, nivel.getVidas(), score);
+//			ss.resize(1200, 800);
+//			game.setScreen(ss);
+//			dispose();
+//		}
 
 	}
 	
