@@ -6,22 +6,18 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Rectangle;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 
 
-public class Nave implements Objeto {
+public class Nave extends ObjetoColisionable {
 	private boolean destruida = false;
     private int vidas = 3;
     private float xVel = 0;
     private float yVel = 0;
-    final private Sprite spr;
     final private Sound sonidoHerido;
     private boolean herido = false;
     final private int tiempoHeridoMax=50;
@@ -36,9 +32,6 @@ public class Nave implements Objeto {
     	//spr.setOriginCenter();
     	spr.setBounds(x, y, 45, 45);
         arma = new Armamento(1,40,2);
-    }
-    public void draw(SpriteBatch batch) {
-        spr.draw(batch);
     }
 
     public void update() {
@@ -90,26 +83,7 @@ public class Nave implements Objeto {
             //soundBala.play(0.3f);              esto esta en arma.disparar pero por si no funciona xd
         }
     }
-    public Objeto checkCollision() {
-        ArrayList<Objeto> lista = ListaDeObjetos.getLista();
-        for (Objeto objeto : lista) {
-            if (objeto == this) continue;
-            if (this.getArea().overlaps(objeto.getArea())) {
-                // https://www.baeldung.com/java-method-reflection
-                try {
-                    Method method = this.getClass().getMethod("colisionado", objeto.getClass());
-                    method.invoke(this, objeto);
-                    objeto.colisionado(this);
-                    return objeto;
-                } catch (Exception e) {
-                    System.out.println(e.getMessage());
-                }
-            }
-        }
-        return null;
-    }
     public void colisionado(Asteroide b) {
-        System.out.println("colision con asteroide");
         if (xVel ==0) xVel += b.getXSpeed()/2;
         xVel = - xVel;
 

@@ -11,7 +11,7 @@ public class NivelNormal extends Nivel {
         super();
     }
     public void generarAsteroides(ArrayList objetos){
-        int cantAsteroides = 15;
+        int cantAsteroides = 25;
         int velXAsteroides = 1;
         int velYAsteroides = 1;
         Random r = new Random();
@@ -23,7 +23,6 @@ public class NivelNormal extends Nivel {
                     velYAsteroides+r.nextInt(4),
                     textura, 2);
             objetos.add(bb);
-            System.out.println(bb);
         }
     }
 }

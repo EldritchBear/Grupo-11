@@ -4,20 +4,16 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.math.Intersector;
-import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Rectangle;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 
 
-public class Proyectil implements Objeto {
+public class Proyectil extends ObjetoColisionable {
 	private float xSpeed;
 	private float ySpeed;
 	private boolean destroyed = false;
-	final private Sprite spr;
 	//private int velPr;                     //cambiar xspeed y yspeed por esto?
 	private int dmg;
 
@@ -52,27 +48,6 @@ public class Proyectil implements Objeto {
 			destroyed = true;
 		}
 	}
-	public void draw(SpriteBatch batch) {
-		spr.draw(batch);
-	}
-	public Objeto checkCollision() {
-		ArrayList<Objeto> lista = ListaDeObjetos.getLista();
-		for (Objeto objeto : lista) {
-			if (objeto == this) continue;
-			if (this.getArea().overlaps(objeto.getArea())) {
-				// https://www.baeldung.com/java-method-reflection
-				try {
-					Method method = this.getClass().getMethod("colisionado", objeto.getClass());
-					method.invoke(this, objeto);
-					objeto.colisionado(this);
-					return objeto;
-				} catch (Exception e) {
-					System.out.println(e.getMessage());
-				}
-			}
-		}
-		return null;
-	}
 	public void colisionado(Asteroide asteroide) {
 		this.destroyed = true;
 	}
@@ -85,8 +60,5 @@ public class Proyectil implements Objeto {
 	public boolean isDestroyed() {return destroyed;}
 	public int getDamage() {
 		return this.dmg;
-	}
-	public Rectangle getArea() {
-		return spr.getBoundingRectangle();
 	}
 }

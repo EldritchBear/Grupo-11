@@ -59,8 +59,8 @@ public class PantallaJuego implements Screen {
 
 		//el jugador se quedo sin vidas
 		if (nivel.esGameOver()) {
-		if (score > game.getHighScore())
-			game.setHighScore(score);
+			System.out.println("Game over");
+			if (score > game.getHighScore()) game.setHighScore(score);
 			Screen ss = new PantallaGameOver(game);
 			ss.resize(1200, 800);
 			game.setScreen(ss);
@@ -68,12 +68,12 @@ public class PantallaJuego implements Screen {
 		}
 		batch.end();
 		//nivel completado
-//		if (nivel.estaCompletado()) {
-//			Screen ss = new PantallaJuego(game,ronda+1, nivel.getVidas(), score);
-//			ss.resize(1200, 800);
-//			game.setScreen(ss);
-//			dispose();
-//		}
+		if (nivel.estaCompletado()) {
+			Screen ss = new PantallaJuego(game,ronda+1, nivel.getVidas(), score);
+			ss.resize(1200, 800);
+			game.setScreen(ss);
+			dispose();
+		}
 
 	}
 	

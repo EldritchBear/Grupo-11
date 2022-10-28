@@ -4,22 +4,19 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.math.Intersector;
-import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Rectangle;
 
 import java.util.ArrayList;
 import java.lang.reflect.*;
 
 
-public class Asteroide implements Objeto {
+public class Asteroide extends ObjetoColisionable {
     private int x;
     private int y;
     private int xSpeed;
     private int ySpeed;
-    final private Sprite spr;
     private int hp;
+    private int colisionCD;
 
     public Asteroide(int x, int y, int size, int xSpeed, int ySpeed, Texture texture, int hp) {
         spr = new Sprite(texture);
@@ -48,35 +45,11 @@ public class Asteroide implements Objeto {
         if (y+getySpeed() < 0 || y+getySpeed()+spr.getHeight() > Gdx.graphics.getHeight())
         	setySpeed(getySpeed() * -1);
         spr.setPosition(x, y);
-    }
-
-    public Rectangle getArea() {
-        return spr.getBoundingRectangle();
-    }
-    public void draw(SpriteBatch batch) {
-        spr.draw(batch);
-    }
-
-    public Objeto checkCollision() {
-        ArrayList<Objeto> lista = ListaDeObjetos.getLista();
-        for (Objeto objeto : lista) {
-            if (objeto == this) continue;
-            if (this.getArea().overlaps(objeto.getArea())) {
-                // https://www.baeldung.com/java-method-reflection
-                try {
-                    Method method = this.getClass().getMethod("colisionado", objeto.getClass());
-                    method.invoke(this, objeto);
-                    objeto.colisionado(this);
-                    return objeto;
-                } catch (Exception e) {
-                    System.out.println(e.getMessage());
-                }
-            }
-        }
-        return null;
+        if (colisionCD > 0) colisionCD--;
     }
 
     public void colisionado(Asteroide asteroide) {
+        if (colisionCD > 0) return;
         if (getXSpeed() == 0) setXSpeed(getXSpeed() + asteroide.getXSpeed()/2);
         if (asteroide.getXSpeed() == 0) asteroide.setXSpeed(asteroide.getXSpeed() + getXSpeed()/2);
         setXSpeed(-getXSpeed());
@@ -86,6 +59,9 @@ public class Asteroide implements Objeto {
         if (asteroide.getySpeed() == 0) asteroide.setySpeed(asteroide.getySpeed() + getySpeed()/2);
         setySpeed(- getySpeed());
         asteroide.setySpeed(- asteroide.getySpeed());
+
+        setColisionCD(3);
+        asteroide.setColisionCD(3);
     }
 
     public void colisionado(Nave nave) {
@@ -103,6 +79,7 @@ public class Asteroide implements Objeto {
 
     public boolean isDestroyed() {
         if (this.hp > 0) return false;
+        ListaDeObjetos.reducirAsteroides();
         return true;
     }
 
@@ -121,4 +98,5 @@ public class Asteroide implements Objeto {
 	public void setySpeed(int ySpeed) {
 		this.ySpeed = ySpeed;
 	}
+    public void setColisionCD(int cd) {this.colisionCD = cd;}
 }
