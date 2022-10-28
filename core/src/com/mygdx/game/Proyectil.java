@@ -4,6 +4,9 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Intersector;
+import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Rectangle;
 
 import java.lang.reflect.Method;
@@ -48,14 +51,12 @@ public class Proyectil implements Objeto {
 		if (spr.getY() < 0 || spr.getY()+spr.getHeight() > Gdx.graphics.getHeight()) {
 			destroyed = true;
 		}
-
 	}
 	public void draw(SpriteBatch batch) {
 		spr.draw(batch);
 	}
-	public void checkCollision() {
+	public Objeto checkCollision() {
 		ArrayList<Objeto> lista = ListaDeObjetos.getLista();
-		if (lista == null) return;
 		for (Objeto objeto : lista) {
 			if (objeto == this) continue;
 			if (this.getArea().overlaps(objeto.getArea())) {
@@ -63,12 +64,14 @@ public class Proyectil implements Objeto {
 				try {
 					Method method = this.getClass().getMethod("colisionado", objeto.getClass());
 					method.invoke(this, objeto);
+					objeto.colisionado(this);
+					return objeto;
 				} catch (Exception e) {
 					System.out.println(e.getMessage());
-					continue;
 				}
 			}
 		}
+		return null;
 	}
 	public void colisionado(Asteroide asteroide) {
 		this.destroyed = true;

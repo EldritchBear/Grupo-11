@@ -31,9 +31,17 @@ public abstract class Nivel {
 
     public void update() {
         ArrayList destruidos = new ArrayList();
-        for (Object objeto : objetos) {
-            ((Objeto)objeto).update();
-            if (((Objeto)objeto).isDestroyed()) destruidos.add(objeto);
+        ArrayList colisionados = new ArrayList();
+        for (Objeto objeto : objetos) {
+            objeto.update();
+            if (!colisionados.contains(objeto)) {
+                Objeto objetoColisionado = objeto.checkCollision();
+                if (objetoColisionado != null) {
+                    colisionados.add(objeto);
+                    colisionados.add(objetoColisionado);
+                }
+            }
+            if (objeto.isDestroyed()) destruidos.add(objeto);
         }
         for (Object objeto : destruidos) {
             objetos.remove(objeto);
@@ -48,6 +56,7 @@ public abstract class Nivel {
 
     public boolean esGameOver(){
         if(vidas == 0){
+            System.out.println("Game over");
             return true;
         }
         return false;

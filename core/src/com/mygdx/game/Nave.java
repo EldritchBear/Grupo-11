@@ -6,7 +6,10 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Rectangle;
 
 import java.lang.reflect.Method;
@@ -14,7 +17,6 @@ import java.util.ArrayList;
 
 
 public class Nave implements Objeto {
-	
 	private boolean destruida = false;
     private int vidas = 3;
     private float xVel = 0;
@@ -88,9 +90,8 @@ public class Nave implements Objeto {
             //soundBala.play(0.3f);              esto esta en arma.disparar pero por si no funciona xd
         }
     }
-    public void checkCollision() {
+    public Objeto checkCollision() {
         ArrayList<Objeto> lista = ListaDeObjetos.getLista();
-        if (lista == null) return;
         for (Objeto objeto : lista) {
             if (objeto == this) continue;
             if (this.getArea().overlaps(objeto.getArea())) {
@@ -98,24 +99,22 @@ public class Nave implements Objeto {
                 try {
                     Method method = this.getClass().getMethod("colisionado", objeto.getClass());
                     method.invoke(this, objeto);
+                    objeto.colisionado(this);
+                    return objeto;
                 } catch (Exception e) {
                     System.out.println(e.getMessage());
-                    continue;
                 }
             }
         }
+        return null;
     }
     public void colisionado(Asteroide b) {
         System.out.println("colision con asteroide");
         if (xVel ==0) xVel += b.getXSpeed()/2;
-        if (b.getXSpeed() ==0) b.setXSpeed(b.getXSpeed() + (int)xVel/2);
         xVel = - xVel;
-        b.setXSpeed(-b.getXSpeed());
 
         if (yVel ==0) yVel += b.getySpeed()/2;
-        if (b.getySpeed() ==0) b.setySpeed(b.getySpeed() + (int)yVel/2);
         yVel = - yVel;
-        b.setySpeed(- b.getySpeed());
         //actualizar vidas y herir
         this.vidas--;
         herido = true;
@@ -138,8 +137,10 @@ public class Nave implements Objeto {
  	   return herido;
     }
     public Rectangle getArea() {
-        return spr.getBoundingRectangle();
+        return new Rectangle(spr.getX(), spr.getY(), spr.getWidth(), spr.getHeight());
     }
     public int getVidas() {return vidas;}
 	public void setVidas(int vidas2) {vidas = vidas2;}
+    public float getVelX() {return xVel;}
+    public float getVelY() {return yVel;}
 }

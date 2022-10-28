@@ -4,6 +4,9 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Intersector;
+import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Rectangle;
 
 import java.util.ArrayList;
@@ -45,33 +48,32 @@ public class Asteroide implements Objeto {
         if (y+getySpeed() < 0 || y+getySpeed()+spr.getHeight() > Gdx.graphics.getHeight())
         	setySpeed(getySpeed() * -1);
         spr.setPosition(x, y);
-        checkCollision();
     }
-    
+
     public Rectangle getArea() {
-    	return spr.getBoundingRectangle();
+        return spr.getBoundingRectangle();
     }
     public void draw(SpriteBatch batch) {
-    	spr.draw(batch);
+        spr.draw(batch);
     }
-    
-    public void checkCollision() {
+
+    public Objeto checkCollision() {
         ArrayList<Objeto> lista = ListaDeObjetos.getLista();
-        if (lista == null) return;
         for (Objeto objeto : lista) {
             if (objeto == this) continue;
             if (this.getArea().overlaps(objeto.getArea())) {
-                System.out.println("colision");
                 // https://www.baeldung.com/java-method-reflection
                 try {
                     Method method = this.getClass().getMethod("colisionado", objeto.getClass());
                     method.invoke(this, objeto);
+                    objeto.colisionado(this);
+                    return objeto;
                 } catch (Exception e) {
                     System.out.println(e.getMessage());
-                    continue;
                 }
             }
         }
+        return null;
     }
 
     public void colisionado(Asteroide asteroide) {
@@ -87,7 +89,12 @@ public class Asteroide implements Objeto {
     }
 
     public void colisionado(Nave nave) {
-        this.hp = 0;
+        Asteroide b = this;
+        if (b.getXSpeed() ==0) b.setXSpeed(b.getXSpeed() + (int)nave.getVelX()/2);
+        b.setXSpeed(-b.getXSpeed());
+        if (b.getySpeed() ==0) b.setySpeed(b.getySpeed() + (int)nave.getVelY()/2);
+        b.setySpeed(- b.getySpeed());
+        this.quitarHp(2);
     }
 
     public void colisionado(Proyectil proyectil) {

@@ -1,12 +1,13 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Rectangle;
 
 public interface Objeto {
     public void update();
     public boolean isDestroyed();
-    public void checkCollision();
+    public Objeto checkCollision();
     public Rectangle getArea();
     public void draw(SpriteBatch batch);
     // debe implementar cada caso en donde el objeto colisiona con otro
