@@ -7,30 +7,28 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import java.util.ArrayList;
 
 public abstract class Nivel {
-    private Nave nave;
-    private ArrayList<ObjetoColisionable> objetos;
+    final private Nave nave;
+    final private ArrayList<ObjetoColisionable> objetos;
     public Nivel() {
-        this.objetos = new ArrayList();
+        this.objetos = new ArrayList<>();
         generarAsteroides(this.objetos);
         new ListaDeObjetos(objetos);
         this.nave = new Nave(Gdx.graphics.getWidth()/2-50,30,new Texture(Gdx.files.internal("MainShip3.png")),
-                Gdx.audio.newSound(Gdx.files.internal("hurt.ogg")),
-                new Texture(Gdx.files.internal("Rocket2.png")),
-                Gdx.audio.newSound(Gdx.files.internal("pop-sound.mp3")));
+                Gdx.audio.newSound(Gdx.files.internal("hurt.ogg")));
                 nave.setVidas(3);
         this.objetos.add(nave);
     }
 
     public void render(SpriteBatch batch) {
         this.update();
-        for (Object b : objetos) {
-            ((ObjetoColisionable)b).draw(batch);
+        for (ObjetoColisionable b : objetos) {
+            b.draw(batch);
         }
     }
 
     public void update() {
-        ArrayList destruidos = new ArrayList();
-        ArrayList colisionados = new ArrayList();
+        ArrayList<ObjetoColisionable> destruidos = new ArrayList<>();
+        ArrayList<ObjetoColisionable> colisionados = new ArrayList<>();
         for (ObjetoColisionable objeto : objetos) {
             objeto.update();
             if (!colisionados.contains(objeto)) {
@@ -49,27 +47,17 @@ public abstract class Nivel {
         ListaDeObjetos.eliminarCola();
     }
 
-    public void agregarBala(Proyectil bb) {
-        objetos.add(bb);
-    }
-
     public boolean esGameOver(){
-        if(nave.getVidas() == 0){
-            return true;
-        }
-        return false;
+        return nave.getVidas() == 0;
     }
 
     public boolean estaCompletado(){
-        if(ListaDeObjetos.getNumAsteroides() == 0){
-            return true;
-        }
-        return false;
+        return ListaDeObjetos.getNumAsteroides() == 0;
     }
     public int getVidas() {
         if (this.nave == null) return 0;
         return this.nave.getVidas();
     }
 
-    abstract void generarAsteroides(ArrayList objetos);
+    abstract void generarAsteroides(ArrayList<ObjetoColisionable> objetos);
 }

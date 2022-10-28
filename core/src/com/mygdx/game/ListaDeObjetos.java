@@ -9,10 +9,10 @@ public class ListaDeObjetos {
     public ListaDeObjetos(ArrayList<ObjetoColisionable> list) {
         lista = list;
         numAsteroides = list.size();
-        cola = new ArrayList<ObjetoColisionable>();
+        cola = new ArrayList<>();
     }
     public static void eliminarCola() {
-        cola = new ArrayList<ObjetoColisionable>();
+        cola = new ArrayList<>();
     }
     public static ArrayList<ObjetoColisionable> getLista() {
         return lista;

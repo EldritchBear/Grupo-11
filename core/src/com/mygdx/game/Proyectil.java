@@ -3,21 +3,14 @@ package com.mygdx.game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Rectangle;
-
-import java.lang.reflect.Method;
-import java.util.ArrayList;
-
 
 public class Proyectil extends ObjetoColisionable {
 	private float xSpeed;
 	private float ySpeed;
 	private boolean destroyed = false;
 	//private int velPr;                     //cambiar xspeed y yspeed por esto?
-	private int dmg;
-
-	private int rotacion;
+	final private int dmg;
+	final private int rotacion;
 
 	public Proyectil(float x, float y, int velPr, int rr, int dmg){
 		Texture tx = new Texture(Gdx.files.internal("Rocket2.png"));

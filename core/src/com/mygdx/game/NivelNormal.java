@@ -10,8 +10,8 @@ public class NivelNormal extends Nivel {
     public NivelNormal(){
         super();
     }
-    public void generarAsteroides(ArrayList objetos){
-        int cantAsteroides = 25;
+    public void generarAsteroides(ArrayList<ObjetoColisionable> objetos){
+        int cantAsteroides = 10;
         int velXAsteroides = 1;
         int velYAsteroides = 1;
         Random r = new Random();

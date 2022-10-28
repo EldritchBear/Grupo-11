@@ -5,13 +5,8 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
-
-import java.lang.reflect.Method;
-import java.util.ArrayList;
-
 
 public class Nave extends ObjetoColisionable {
 	private boolean destruida = false;
@@ -23,18 +18,18 @@ public class Nave extends ObjetoColisionable {
     final private int tiempoHeridoMax=50;
     private int tiempoHerido;
     private int rotacion = 0;
-    private Armamento arma;
+    final private Armamento arma;
     
-    public Nave(int x, int y, Texture tx, Sound soundChoque, Texture texture, Sound sound) {
+    public Nave(int x, int y, Texture tx, Sound soundChoque) {
     	sonidoHerido = soundChoque;
     	spr = new Sprite(tx);
     	spr.setPosition(x, y);
-    	//spr.setOriginCenter();
     	spr.setBounds(x, y, 45, 45);
         arma = new Armamento(1,40,2);
     }
 
     public void update() {
+        arma.disminuirCdBala();
         float x = spr.getX();
         float y = spr.getY();
         if (!herido) {
@@ -84,6 +79,7 @@ public class Nave extends ObjetoColisionable {
         }
     }
     public void colisionado(Asteroide b) {
+        if (this.herido) return;
         if (xVel ==0) xVel += b.getXSpeed()/2;
         xVel = - xVel;
 
@@ -106,9 +102,6 @@ public class Nave extends ObjetoColisionable {
     
     public boolean isDestroyed() {
        return !herido && destruida;
-    }
-    public boolean estaHerido() {
- 	   return herido;
     }
     public Rectangle getArea() {
         return new Rectangle(spr.getX(), spr.getY(), spr.getWidth(), spr.getHeight());

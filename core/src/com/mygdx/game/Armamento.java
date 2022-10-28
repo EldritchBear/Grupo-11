@@ -28,7 +28,7 @@ public class Armamento {
             cdBala = velAt;
             soundBala.play(0.3f);
             ListaDeObjetos.getCola().add(bala);
-        }else{cdBala--;}
+        }
     }
 
     public int getDmg() {
@@ -53,5 +53,9 @@ public class Armamento {
 
     public void setVelPr(int velPr) {
         this.velPr = velPr;
+    }
+
+    public void disminuirCdBala() {
+        if (cdBala > 0) cdBala--;
     }
 }

@@ -1,15 +1,11 @@
 package com.mygdx.game;
 
-import java.util.ArrayList;
-import java.util.Random;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 
@@ -18,11 +14,11 @@ public class PantallaJuego implements Screen {
 	final private SpriteBatch batch;
 	final private Sound explosionSound;
 	final private Music gameMusic;
-	private int score;
+	final private int score;
 	final private int ronda;
-	private Nivel nivel;
+	final private Nivel nivel;
 
-	public PantallaJuego(SpaceNavigation game, int ronda, int vidas, int score) {
+	public PantallaJuego(SpaceNavigation game, int ronda, int score) {
 		this.game = game;
 		this.ronda = ronda;
 		this.score = score;
@@ -69,7 +65,7 @@ public class PantallaJuego implements Screen {
 		batch.end();
 		//nivel completado
 		if (nivel.estaCompletado()) {
-			Screen ss = new PantallaJuego(game,ronda+1, nivel.getVidas(), score);
+			Screen ss = new PantallaJuego(game,ronda+1, score);
 			ss.resize(1200, 800);
 			game.setScreen(ss);
 			dispose();
