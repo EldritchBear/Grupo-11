@@ -10,7 +10,7 @@ public class Proyectil extends ObjetoColisionable {
 	private boolean destroyed = false;
 	//private int velPr;                     //cambiar xspeed y yspeed por esto?
 	final private int dmg;
-	final private int rotacion;
+	private int rotacion;
 
 	public Proyectil(float x, float y, int velPr, int rr, int dmg){
 		Texture tx = new Texture(Gdx.files.internal("Rocket2.png"));
@@ -18,19 +18,14 @@ public class Proyectil extends ObjetoColisionable {
 		this.rotacion = rr;
 		this.dmg = dmg;
 		//this.velPr = velPr;
-		spr.setRotation(rotacion); //probar con grados y no radianes, creo que va a ser más sano
-		if(Math.sin(Math.toRadians(rotacion)) > 0 && Math.sin(Math.toRadians(rotacion)) < 1) {
-			this.xSpeed = -velPr + (float)(Math.sin(Math.toRadians(rotacion)));
-			this.ySpeed = velPr - (float) (Math.cos((Math.toRadians(rotacion)))*0.1);
-		}else if (Math.sin(Math.toRadians(rotacion)) < 1 && Math.sin(Math.toRadians(rotacion)) < 0){
-			this.xSpeed = velPr - (float) (Math.sin(Math.toRadians(rotacion)));
-			this.ySpeed = velPr + (float) (Math.cos(Math.toRadians(rotacion)));
-		}else if (Math.sin(Math.toRadians(rotacion)) == 0){
-			this.xSpeed = 0;
-			this.ySpeed = velPr;
-		}
+		spr.setRotation(rotacion);
 
-		spr.setPosition(x, y);
+		this.rotacion += 90;
+
+		this.xSpeed = velPr * (float)(Math.cos(Math.toRadians(rotacion)));
+		this.ySpeed = velPr * (float)(Math.sin(Math.toRadians(rotacion)));
+
+		spr.setPosition(x+xSpeed, y+ySpeed);
 	}
 	public void update() {
 		spr.setPosition(spr.getX()+xSpeed, spr.getY()+ySpeed);

@@ -25,7 +25,7 @@ public class Nave extends ObjetoColisionable {
     	spr = new Sprite(tx);
     	spr.setPosition(x, y);
     	spr.setBounds(x, y, 45, 45);
-        arma = new Armamento(1,40,2);
+        arma = new Armamento(1,40,4);
     }
 
     public void update() {
@@ -38,22 +38,22 @@ public class Nave extends ObjetoColisionable {
 
             if (Gdx.input.isKeyPressed(Input.Keys.W)) {
                 xVel -= Math.sin(Math.toRadians(rotacion)) * 0.1;
-                if (xVel > 1) {
-                    xVel = 1;
+                if (xVel > 3) {
+                    xVel = 3;
                 }
                 yVel += Math.cos(Math.toRadians(rotacion)) * 0.1;
-                if (yVel > 2.25f) {
-                    yVel = 2.25f;
+                if (yVel > 3.25f) {
+                    yVel = 3.25f;
                 }
             }
             if (Gdx.input.isKeyPressed(Input.Keys.S)) {
                 xVel += Math.sin(Math.toRadians(rotacion)) * 0.1;
-                if (xVel > 1) {
-                    xVel = 1;
+                if (xVel > 3) {
+                    xVel = 3;
                 }
                 yVel -= Math.cos(Math.toRadians(rotacion)) * 0.1;
-                if (yVel < -2.25f) {
-                    yVel = -2.25f;
+                if (yVel < -3.25f) {
+                    yVel = -3.25f;
                 }
 
             }
