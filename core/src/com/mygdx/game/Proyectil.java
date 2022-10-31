@@ -39,6 +39,9 @@ public class Proyectil extends ObjetoColisionable {
 	public void colisionado(Asteroide asteroide) {
 		this.destroyed = true;
 	}
+	public void colisionado(AsteroideJefe asteroide) {
+		colisionado((Asteroide)asteroide);
+	}
 	public void colisionado(Nave nave) {
 		// nada
 	}

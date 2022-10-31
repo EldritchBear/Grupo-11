@@ -13,7 +13,7 @@ public class NivelNormal extends Nivel {
         this.nivel = nivel;
     }
     public void generarAsteroides(ArrayList<ObjetoColisionable> objetos){
-        int cantAsteroides = 5 + (this.nivel);
+        int cantAsteroides = 1 + (this.nivel);
         int velXAsteroides = 1 + (this.nivel / 8);
         int velYAsteroides = 1 + (this.nivel / 8);
         Random r = new Random();

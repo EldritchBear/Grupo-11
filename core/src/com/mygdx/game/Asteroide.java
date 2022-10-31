@@ -58,6 +58,9 @@ public class Asteroide extends ObjetoColisionable {
         setColisionCD(3);
         asteroide.setColisionCD(3);
     }
+    public void colisionado(AsteroideJefe asteroide) {
+        colisionado((Asteroide)asteroide);
+    }
 
     public void colisionado(Nave nave) {
         Asteroide b = this;

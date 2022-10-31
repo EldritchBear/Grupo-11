@@ -26,9 +26,14 @@ public class NivelJefe extends Nivel {
                     textura, 2);
             objetos.add(bb);
         }
-        for (int i = 0; i < this.nivel / 3; i++) {
+        for (int i = 0; i < this.nivel / 3 + 1; i++) {
             cantAsteroides += 1;
-            objetos.add(new AsteroideJefe());
+            System.out.println("asteroide jefe");
+            objetos.add(new AsteroideJefe(r.nextInt(Gdx.graphics.getWidth()),
+                    50+r.nextInt(Gdx.graphics.getHeight()-50),
+                    20+r.nextInt(10), (velXAsteroides+r.nextInt(4)) * nivel/3,
+                    (velYAsteroides+r.nextInt(4)) * nivel/3,
+                    textura, 6 + nivel));
         }
     }
 }

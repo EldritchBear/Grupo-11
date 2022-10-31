@@ -93,6 +93,9 @@ public class Nave extends ObjetoColisionable {
         if (vidas<=0)
             destruida = true;
     }
+    public void colisionado(AsteroideJefe asteroide) {
+        colisionado((Asteroide)asteroide);
+    }
     public void colisionado(Nave nave) {
         // imposible
     }

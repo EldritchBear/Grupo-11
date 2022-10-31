@@ -10,9 +10,8 @@ public class AsteroideJefe extends Asteroide{
     private int colisionCD;
 
     public AsteroideJefe(int x, int y, int size, int xSpeed, int ySpeed, Texture texture, int hp){
-        super(x,y,size,xSpeed,ySpeed,texture,hp+3);
-        spr.setSize(x,y);
-
+        super(x,y,size * 5,xSpeed,ySpeed,texture,hp);
+        spr.setSize(spr.getWidth() * 5,spr.getWidth() * 5);
     }
     public void update(){
         x += getXSpeed() * 2;
