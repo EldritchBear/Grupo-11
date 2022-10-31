@@ -22,7 +22,9 @@ public class PantallaJuego implements Screen {
 		this.game = game;
 		this.ronda = ronda;
 		this.score = score;
-		this.nivel = new NivelNormal();
+
+		if (ronda % 3 != 0) this.nivel = new NivelNormal(ronda);
+		else {this.nivel = new NivelJefe(ronda);}
 		
 		batch = game.getBatch();
 		OrthographicCamera camera = new OrthographicCamera();
