@@ -11,12 +11,16 @@ public class ListaDeObjetos {
         numAsteroides = list.size();
         cola = new ArrayList<>();
     }
-    private ListaDeObjetos(ArrayList<ObjetoColisionable> list) {
+    private ListaDeObjetos() {
+        lista = new ArrayList<>();
+        numAsteroides = 0;
+        cola = new ArrayList<>();
     }
     public static void eliminarCola() {
         cola = new ArrayList<>();
     }
     public static ArrayList<ObjetoColisionable> getLista() {
+        if (lista == null) new ListaDeObjetos();
         return lista;
     }
     public static ArrayList<ObjetoColisionable> getCola() {
