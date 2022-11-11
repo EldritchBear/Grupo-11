@@ -6,10 +6,12 @@ public class ListaDeObjetos {
     private static ArrayList<ObjetoColisionable> lista;
     private static ArrayList<ObjetoColisionable> cola;
     private static int numAsteroides;
-    public ListaDeObjetos(ArrayList<ObjetoColisionable> list) {
+    public static void actualizarLista(ArrayList<ObjetoColisionable> list) {
         lista = list;
         numAsteroides = list.size();
         cola = new ArrayList<>();
+    }
+    private ListaDeObjetos(ArrayList<ObjetoColisionable> list) {
     }
     public static void eliminarCola() {
         cola = new ArrayList<>();

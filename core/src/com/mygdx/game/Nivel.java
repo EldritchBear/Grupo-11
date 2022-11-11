@@ -12,7 +12,7 @@ public abstract class Nivel {
     public Nivel() {
         this.objetos = new ArrayList<>();
         generarAsteroides(this.objetos);
-        new ListaDeObjetos(objetos);
+        ListaDeObjetos.actualizarLista(objetos);
         this.nave = new Nave(Gdx.graphics.getWidth()/2-50,30,new Texture(Gdx.files.internal("MainShip3.png")),
                 Gdx.audio.newSound(Gdx.files.internal("hurt.ogg")));
                 nave.setVidas(3);
