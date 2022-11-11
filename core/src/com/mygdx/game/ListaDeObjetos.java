@@ -24,12 +24,14 @@ public class ListaDeObjetos {
         return lista;
     }
     public static ArrayList<ObjetoColisionable> getCola() {
+        if (cola == null) new ListaDeObjetos();
         return cola;
     }
     public static void reducirAsteroides() {
         numAsteroides--;
     }
     public static int getNumAsteroides() {
+        if (lista == null) new ListaDeObjetos();
         return numAsteroides;
     }
 }
