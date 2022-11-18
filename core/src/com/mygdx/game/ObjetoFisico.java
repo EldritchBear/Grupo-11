@@ -1,10 +1,36 @@
 package com.mygdx.game;
 
-public interface ObjetoFisico {
-    void update();
-    boolean isDestroyed();
-    // debe implementar cada caso en donde el objeto colisiona con otro
-    void colisionado(Asteroide asteroide);
-    void colisionado(Nave nave);
-    void colisionado(Proyectil proyectil);
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Rectangle;
+
+import java.lang.reflect.Method;
+import java.util.ArrayList;
+
+public abstract class ObjetoFisico implements Colisionable {
+    public ObjetoFisico checkCollision() {
+        ArrayList<ObjetoFisico> lista = ObjetosEnPantalla.getLista();
+        for (ObjetoFisico objeto : lista) {
+            if (objeto == this) continue;
+            if (this.getArea().overlaps(objeto.getArea())) {
+                // https://www.baeldung.com/java-method-reflection
+                try {
+                    Method method = this.getClass().getMethod("colisionado", objeto.getClass());
+                    method.invoke(this, objeto);
+
+                    Method methodColisionado = objeto.getClass().getMethod("colisionado", this.getClass());
+                    methodColisionado.invoke(objeto, this);
+                    return objeto;
+                } catch (Exception e) {
+                    System.out.println(e.getMessage());
+                }
+            }
+        }
+        return null;
+    }
+    public Rectangle getArea() {
+        return spr.getBoundingRectangle();
+    }
+    public void draw(SpriteBatch batch) {
+        spr.draw(batch);
+    }
 }

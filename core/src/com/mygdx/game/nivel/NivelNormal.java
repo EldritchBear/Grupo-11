@@ -1,9 +1,10 @@
-package com.mygdx.game;
+package com.mygdx.game.nivel;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.mygdx.game.Asteroide;
+import com.mygdx.game.ObjetosEnPantalla;
 
-import java.util.ArrayList;
 import java.util.Random;
 
 public class NivelNormal extends Nivel {
@@ -12,7 +13,7 @@ public class NivelNormal extends Nivel {
         super();
         this.nivel = nivel;
     }
-    public void generarAsteroides(ArrayList<ObjetoColisionable> objetos){
+    public void generarAsteroides(){
         int cantAsteroides = 1 + (this.nivel);
         int velXAsteroides = 1 + (this.nivel / 8);
         int velYAsteroides = 1 + (this.nivel / 8);
@@ -24,7 +25,7 @@ public class NivelNormal extends Nivel {
                     20+r.nextInt(10), velXAsteroides+r.nextInt(4),
                     velYAsteroides+r.nextInt(4),
                     textura, 2);
-            objetos.add(bb);
+            ObjetosEnPantalla.agregarObjeto(bb);
         }
     }
 }

@@ -1,9 +1,11 @@
-package com.mygdx.game;
+package com.mygdx.game.nivel;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.mygdx.game.Asteroide;
+import com.mygdx.game.AsteroideJefe;
+import com.mygdx.game.ObjetosEnPantalla;
 
-import java.util.ArrayList;
 import java.util.Random;
 
 public class NivelJefe extends Nivel {
@@ -12,7 +14,7 @@ public class NivelJefe extends Nivel {
         super();
         this.nivel = nivel;
     }
-    public void generarAsteroides(ArrayList<ObjetoColisionable> objetos){
+    public void generarAsteroides(){
         int cantAsteroides = 4 + (this.nivel);
         int velXAsteroides = 1 + (this.nivel / 8);
         int velYAsteroides = 1 + (this.nivel / 8);
@@ -24,12 +26,12 @@ public class NivelJefe extends Nivel {
                     20+r.nextInt(10), velXAsteroides+r.nextInt(4),
                     velYAsteroides+r.nextInt(4),
                     textura, 2);
-            objetos.add(bb);
+            ObjetosEnPantalla.agregarObjeto(bb);
         }
         for (int i = 0; i < this.nivel / 3 + 1; i++) {
             cantAsteroides += 1;
             System.out.println("asteroide jefe");
-            objetos.add(new AsteroideJefe(r.nextInt(Gdx.graphics.getWidth()),
+            ObjetosEnPantalla.agregarObjeto(new AsteroideJefe(r.nextInt(Gdx.graphics.getWidth()),
                     50+r.nextInt(Gdx.graphics.getHeight()-50),
                     20+r.nextInt(10), (velXAsteroides+r.nextInt(4)) * nivel/3,
                     (velYAsteroides+r.nextInt(4)) * nivel/3,

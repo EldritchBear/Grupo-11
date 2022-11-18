@@ -7,8 +7,10 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
+import com.mygdx.game.proyectil.Proyectil;
 
-public class Nave extends ObjetoColisionable {
+public class Nave extends ObjetoFisico {
+    private Sprite spr;
 	private boolean destruida = false;
     private int vidas = 3;
     private float xVel = 0;

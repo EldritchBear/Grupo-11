@@ -1,10 +1,13 @@
-package com.mygdx.game;
+package com.mygdx.game.proyectil;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.mygdx.game.Asteroide;
+import com.mygdx.game.AsteroideJefe;
+import com.mygdx.game.Nave;
 
-public class ProyectilEspecial1 extends Proyectil {
+public class ProyectilEspecial2 extends Proyectil {
     private float xSpeed;
     private float ySpeed;
     private boolean destroyed = false;
@@ -12,7 +15,7 @@ public class ProyectilEspecial1 extends Proyectil {
     final private int dmg;
     private int rotacion;
 
-    public ProyectilEspecial1(float x, float y, int velPr, int rr, int dmg){
+    public ProyectilEspecial2(float x, float y, int velPr, int rr, int dmg){
         Texture tx = new Texture(Gdx.files.internal("Rocket2.png"));
         spr = new Sprite(tx);
         this.rotacion = rr;

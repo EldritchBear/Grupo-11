@@ -1,10 +1,15 @@
-package com.mygdx.game;
+package com.mygdx.game.proyectil;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.mygdx.game.Asteroide;
+import com.mygdx.game.AsteroideJefe;
+import com.mygdx.game.Nave;
+import com.mygdx.game.ObjetoFisico;
 
-public class Proyectil extends ObjetoColisionable {
+public class Proyectil extends ObjetoFisico {
+	private Sprite spr;
 	private float xSpeed;
 	private float ySpeed;
 	private boolean destroyed = false;

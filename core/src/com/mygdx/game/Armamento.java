@@ -2,6 +2,7 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
+import com.mygdx.game.proyectil.Proyectil;
 
 public class Armamento {
 
@@ -27,7 +28,7 @@ public class Armamento {
             Proyectil bala = new Proyectil(x, y, velPr, rotacion,dmg);
             cdBala = velAt;
             soundBala.play(0.3f);
-            ListaDeObjetos.getCola().add(bala);
+            ObjetosEnPantalla.agregarACola(bala);
         }
     }
 

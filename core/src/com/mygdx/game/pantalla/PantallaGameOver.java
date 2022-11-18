@@ -1,18 +1,19 @@
-package com.mygdx.game;
+package com.mygdx.game.pantalla;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.utils.ScreenUtils;
+import com.mygdx.game.SpaceNavigation;
 
 
-public class PantallaMenu implements Screen {
+public class PantallaGameOver implements Screen {
 
 	final private SpaceNavigation game;
 	final private OrthographicCamera camera;
 
-	public PantallaMenu(SpaceNavigation game) {
+	public PantallaGameOver(SpaceNavigation game) {
 		this.game = game;
         
 		camera = new OrthographicCamera();
@@ -27,8 +28,8 @@ public class PantallaMenu implements Screen {
 		game.getBatch().setProjectionMatrix(camera.combined);
 
 		game.getBatch().begin();
-		game.getFont().draw(game.getBatch(), "Bienvenido a Space Navigation !", 140, 400);
-		game.getFont().draw(game.getBatch(), "Pincha en cualquier lado o presiona cualquier tecla para comenzar ...", 100, 300);
+		game.getFont().draw(game.getBatch(), "Game Over !!! ", 120, 400,400,1,true);
+		game.getFont().draw(game.getBatch(), "Pincha en cualquier lado para reiniciar ...", 100, 300);
 	
 		game.getBatch().end();
 
@@ -39,7 +40,7 @@ public class PantallaMenu implements Screen {
 			dispose();
 		}
 	}
-	
+ 
 	
 	@Override
 	public void show() {

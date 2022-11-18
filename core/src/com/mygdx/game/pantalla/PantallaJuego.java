@@ -1,4 +1,4 @@
-package com.mygdx.game;
+package com.mygdx.game.pantalla;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -7,6 +7,10 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.mygdx.game.SpaceNavigation;
+import com.mygdx.game.nivel.Nivel;
+import com.mygdx.game.nivel.NivelJefe;
+import com.mygdx.game.nivel.NivelNormal;
 
 
 public class PantallaJuego implements Screen {

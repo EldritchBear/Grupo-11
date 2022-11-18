@@ -3,9 +3,11 @@ package com.mygdx.game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.mygdx.game.proyectil.Proyectil;
 
 
-public class Asteroide extends ObjetoColisionable {
+public class Asteroide extends ObjetoFisico {
+    private Sprite spr;
     private int x;
     private int y;
     private int xSpeed;
@@ -77,7 +79,7 @@ public class Asteroide extends ObjetoColisionable {
 
     public boolean isDestroyed() {
         if (this.hp > 0) return false;
-        ListaDeObjetos.reducirAsteroides();
+        ObjetosEnPantalla.reducirAsteroides();
         return true;
     }
 
