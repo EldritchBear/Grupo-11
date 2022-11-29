@@ -7,16 +7,18 @@ import com.mygdx.game.Asteroide;
 import com.mygdx.game.AsteroideJefe;
 import com.mygdx.game.Nave;
 
-public class ProyectilEspecial2 extends Proyectil {
+public class ProyectilEspecial2 extends Proyectil {                   //no se para que usar esta
     private float xSpeed;
     private float ySpeed;
     private boolean destroyed = false;
     //private int velPr;                     //cambiar xspeed y yspeed por esto?
     final private int dmg;
     private int rotacion;
+    private Sprite spr;
 
     public ProyectilEspecial2(float x, float y, int velPr, int rr, int dmg){
-        Texture tx = new Texture(Gdx.files.internal("Rocket2.png"));
+        super(x,y,velPr,rr,dmg*2);
+        Texture tx = new Texture(Gdx.files.internal("Rocket3.png"));
         spr = new Sprite(tx);
         this.rotacion = rr;
         this.dmg = dmg;

@@ -27,7 +27,7 @@ public class Nave extends Elemento {
     	spr = new Sprite(tx);
     	spr.setPosition(x, y);
     	spr.setBounds(x, y, 45, 45);
-        arma = new Armamento(1,40,4);
+        arma = new Armamento(1,40,4,9);
     }
 
     public void update() {

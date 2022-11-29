@@ -9,9 +9,9 @@ import com.mygdx.game.Nave;
 import com.mygdx.game.Elemento;
 
 public class Proyectil extends Elemento {
-	private Sprite spr;
-	private float xSpeed;
-	private float ySpeed;
+	final private Sprite spr;
+	final private float xSpeed;
+	final private float ySpeed;
 	private boolean destroyed = false;
 	//private int velPr;                     //cambiar xspeed y yspeed por esto?
 	final private int dmg;

@@ -14,9 +14,11 @@ public class ProyectilEspecial1 extends Proyectil {
     //private int velPr;                     //cambiar xspeed y yspeed por esto?
     final private int dmg;
     private int rotacion;
+    private Sprite spr;
 
     public ProyectilEspecial1(float x, float y, int velPr, int rr, int dmg){
-        Texture tx = new Texture(Gdx.files.internal("Rocket2.png"));
+        super(x,y,velPr,rr,dmg*2);
+        Texture tx = new Texture(Gdx.files.internal("Rocket3.png"));
         spr = new Sprite(tx);
         this.rotacion = rr;
         this.dmg = dmg;
