@@ -6,10 +6,10 @@ import com.badlogic.gdx.math.Rectangle;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 
-public abstract class ObjetoFisico implements Colisionable {
-    public ObjetoFisico checkCollision() {
-        ArrayList<ObjetoFisico> lista = ObjetosEnPantalla.getLista();
-        for (ObjetoFisico objeto : lista) {
+public abstract class Elemento implements Colisionable {
+    public Elemento checkCollision() {
+        ArrayList<Elemento> lista = ObjetosEnPantalla.getLista();
+        for (Elemento objeto : lista) {
             if (objeto == this) continue;
             if (this.getArea().overlaps(objeto.getArea())) {
                 // https://www.baeldung.com/java-method-reflection

@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.mygdx.game.proyectil.Proyectil;
 
 
-public class Asteroide extends ObjetoFisico {
+public class Asteroide extends Elemento {
     private Sprite spr;
     private int x;
     private int y;

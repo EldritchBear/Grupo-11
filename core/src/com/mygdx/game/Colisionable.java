@@ -9,4 +9,6 @@ public interface Colisionable {
     void colisionado(Asteroide asteroide);
     void colisionado(Nave nave);
     void colisionado(Proyectil proyectil);
+
+    public void colisionado(AsteroideJefe asteroide);
 }

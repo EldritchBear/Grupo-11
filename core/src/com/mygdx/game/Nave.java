@@ -9,7 +9,7 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.mygdx.game.proyectil.Proyectil;
 
-public class Nave extends ObjetoFisico {
+public class Nave extends Elemento {
     private Sprite spr;
 	private boolean destruida = false;
     private int vidas = 3;
@@ -75,11 +75,11 @@ public class Nave extends ObjetoFisico {
         }
         // disparo
         if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
-            //Proyectil bala = new Proyectil(spr.getX() + spr.getWidth() / 2 - 5, spr.getY() + spr.getHeight() - 5, 3, 3, txBala, rotacion);
             arma.disparar(spr.getX() + spr.getWidth() / 2 - 5, spr.getY() + spr.getHeight() - 5,rotacion);
-            //soundBala.play(0.3f);              esto esta en arma.disparar pero por si no funciona xd
         }
     }
+
+    @Override
     public void colisionado(Asteroide b) {
         if (this.herido) return;
         if (xVel ==0) xVel += b.getXSpeed()/2;
@@ -95,16 +95,23 @@ public class Nave extends ObjetoFisico {
         if (vidas<=0)
             destruida = true;
     }
+
+    @Override
+    public void colisionado(Nave nave) {
+
+    }
+
+    @Override
+    public void colisionado(Proyectil proyectil) {
+
+    }
+
+    @Override
     public void colisionado(AsteroideJefe asteroide) {
         colisionado((Asteroide)asteroide);
     }
-    public void colisionado(Nave nave) {
-        // imposible
-    }
-    public void colisionado(Proyectil proyectil) {
-        // no importa
-    }
     
+    @Override
     public boolean isDestroyed() {
        return !herido && destruida;
     }

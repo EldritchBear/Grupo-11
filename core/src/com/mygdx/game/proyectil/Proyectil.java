@@ -6,9 +6,9 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.mygdx.game.Asteroide;
 import com.mygdx.game.AsteroideJefe;
 import com.mygdx.game.Nave;
-import com.mygdx.game.ObjetoFisico;
+import com.mygdx.game.Elemento;
 
-public class Proyectil extends ObjetoFisico {
+public class Proyectil extends Elemento {
 	private Sprite spr;
 	private float xSpeed;
 	private float ySpeed;
