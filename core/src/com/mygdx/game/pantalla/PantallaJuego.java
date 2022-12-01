@@ -9,6 +9,8 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.SpaceNavigation;
 import com.mygdx.game.nivel.Nivel;
+import com.mygdx.game.nivel.NivelJefe;
+import com.mygdx.game.nivel.NivelNormal;
 
 
 public class PantallaJuego implements Screen {
@@ -25,7 +27,8 @@ public class PantallaJuego implements Screen {
 		this.ronda = ronda;
 		this.score = score;
 
-		this.nivel = new Nivel(ronda);
+		if (ronda % 3 != 0) this.nivel = new NivelNormal(ronda);
+		else {this.nivel = new NivelJefe(ronda);}
 		
 		batch = game.getBatch();
 		OrthographicCamera camera = new OrthographicCamera();

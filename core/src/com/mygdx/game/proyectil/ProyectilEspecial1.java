@@ -3,8 +3,8 @@ package com.mygdx.game.proyectil;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.mygdx.game.Asteroide;
-import com.mygdx.game.AsteroideJefe;
+import asteroides.Asteroide;
+import asteroides.AsteroideJefe;
 import com.mygdx.game.Nave;
 
 public class ProyectilEspecial1 extends Proyectil {

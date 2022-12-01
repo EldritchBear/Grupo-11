@@ -1,5 +1,7 @@
 package com.mygdx.game;
 
+import asteroides.Asteroide;
+import asteroides.AsteroideJefe;
 import com.mygdx.game.proyectil.Proyectil;
 
 public interface Colisionable {
