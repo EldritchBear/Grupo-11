@@ -2,16 +2,24 @@ package com.mygdx.game.nivel;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
-import asteroides.Asteroide;
-import asteroides.AsteroideJefe;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.mygdx.game.Nave;
+import com.mygdx.game.asteroides.Asteroide;
+import com.mygdx.game.asteroides.AsteroideJefe;
 import com.mygdx.game.ObjetosEnPantalla;
 
 import java.util.Random;
 
-public class NivelJefe extends Nivel {
+public class NivelJefe implements Nivel {
     final private int nivel;
+    final private Nave nave;
     public NivelJefe(int nivel) {
-        super();
+        ObjetosEnPantalla.limpiar();
+        generarAsteroides();
+        this.nave = new Nave(Gdx.graphics.getWidth()/2-50,30,new Texture(Gdx.files.internal("MainShip3.png")),
+                Gdx.audio.newSound(Gdx.files.internal("hurt.ogg")));
+        nave.setVidas(3);
+        ObjetosEnPantalla.agregarObjeto(nave);
         this.nivel = nivel;
     }
     public void generarAsteroides(){
@@ -37,5 +45,28 @@ public class NivelJefe extends Nivel {
                     (velYAsteroides+r.nextInt(4)) * nivel/3,
                     textura, 6 + nivel));
         }
+    }
+
+    @Override
+    public void update() {
+        ObjetosEnPantalla.update();
+    }
+
+    @Override
+    public void render(SpriteBatch batch) {
+        this.update();
+        ObjetosEnPantalla.render(batch);
+    }
+
+    public boolean esGameOver(){
+        return nave.getVidas() == 0;
+    }
+
+    public boolean estaCompletado(){
+        return ObjetosEnPantalla.getNumAsteroides() == 0;
+    }
+    public int getVidas() {
+        if (this.nave == null) return 0;
+        return this.nave.getVidas();
     }
 }

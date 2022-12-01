@@ -1,6 +1,6 @@
 package com.mygdx.game;
 
-import asteroides.Asteroide;
+import com.mygdx.game.asteroides.Asteroide;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.audio.Sound;

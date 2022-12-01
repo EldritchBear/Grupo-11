@@ -1,9 +1,8 @@
 package com.mygdx.game.proyectil;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import asteroides.Asteroide;
+import com.mygdx.game.asteroides.Asteroide;
 import com.mygdx.game.Nave;
 import com.mygdx.game.Elemento;
 
