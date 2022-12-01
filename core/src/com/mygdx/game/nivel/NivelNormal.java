@@ -2,7 +2,7 @@ package com.mygdx.game.nivel;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
-import com.mygdx.game.Asteroide;
+import asteroides.Asteroide;
 import com.mygdx.game.ObjetosEnPantalla;
 
 import java.util.Random;
