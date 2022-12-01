@@ -45,7 +45,7 @@ public class Armamento {
             bala = factory.crearProyectil(x,y,velPr,rotacion,dmg);
             cdBala = velAt;
             soundBala.play(0.3f);
-            ObjetosEnPantalla.agregarACola(bala);
+            ElementosEnPantalla.agregarACola(bala);
         }
     }
 

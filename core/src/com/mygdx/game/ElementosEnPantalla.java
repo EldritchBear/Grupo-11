@@ -4,13 +4,13 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import java.util.ArrayList;
 
-public class ObjetosEnPantalla {
+public class ElementosEnPantalla {
     private static ArrayList<Elemento> lista;
     private static ArrayList<Elemento> cola;
     private static ArrayList<Elemento> colaDestruidos;
     private static ArrayList<Elemento> objetosColisionados;
     private static int numAsteroides;
-    private ObjetosEnPantalla() {
+    private ElementosEnPantalla() {
         lista = new ArrayList<>();
         numAsteroides = 0;
         cola = new ArrayList<>();
@@ -29,7 +29,7 @@ public class ObjetosEnPantalla {
     }
 
     public static void agregarObjeto(Elemento objeto) {
-        if (lista == null) new ObjetosEnPantalla();
+        if (lista == null) new ElementosEnPantalla();
         lista.add(objeto);
     }
 
@@ -37,7 +37,7 @@ public class ObjetosEnPantalla {
         colaDestruidos.add(objeto);
     }
     public static void limpiar() {
-        new ObjetosEnPantalla();
+        new ElementosEnPantalla();
     }
 
     public static void limpiarCola() {

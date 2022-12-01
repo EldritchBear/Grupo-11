@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.Nave;
 import com.mygdx.game.asteroides.Asteroide;
 import com.mygdx.game.asteroides.AsteroideJefe;
-import com.mygdx.game.ObjetosEnPantalla;
+import com.mygdx.game.ElementosEnPantalla;
 
 import java.util.Random;
 
@@ -14,18 +14,18 @@ public class NivelJefe implements Nivel {
     final private int nivel;
     final private Nave nave;
     public NivelJefe(int nivel) {
-        ObjetosEnPantalla.limpiar();
+        ElementosEnPantalla.limpiar();
         generarAsteroides();
         this.nave = new Nave(Gdx.graphics.getWidth()/2-50,30,new Texture(Gdx.files.internal("MainShip3.png")),
                 Gdx.audio.newSound(Gdx.files.internal("hurt.ogg")));
         nave.setVidas(3);
-        ObjetosEnPantalla.agregarObjeto(nave);
+        ElementosEnPantalla.agregarObjeto(nave);
         this.nivel = nivel;
     }
     public void generarAsteroides(){
         int cantAsteroides = (this.nivel);
         int cantAsteroidesJefe = this.nivel / 3 + 1;
-        ObjetosEnPantalla.setNumAsteroides(cantAsteroides + cantAsteroidesJefe);
+        ElementosEnPantalla.setNumAsteroides(cantAsteroides + cantAsteroidesJefe);
         int velXAsteroides = 1 + (this.nivel / 8);
         int velYAsteroides = 1 + (this.nivel / 8);
         Random r = new Random();
@@ -36,12 +36,12 @@ public class NivelJefe implements Nivel {
                     20+r.nextInt(10), velXAsteroides+r.nextInt(4),
                     velYAsteroides+r.nextInt(4),
                     textura, 2);
-            ObjetosEnPantalla.agregarObjeto(bb);
+            ElementosEnPantalla.agregarObjeto(bb);
         }
         for (int i = 0; i < cantAsteroidesJefe; i++) {
             cantAsteroides += 1;
             Texture texturaJefe = new Texture(Gdx.files.internal("aGreyLarge.png"));
-            ObjetosEnPantalla.agregarObjeto(new AsteroideJefe(r.nextInt(Gdx.graphics.getWidth()),
+            ElementosEnPantalla.agregarObjeto(new AsteroideJefe(r.nextInt(Gdx.graphics.getWidth()),
                     50+r.nextInt(Gdx.graphics.getHeight()-50),
                     200+r.nextInt(50), velXAsteroides+r.nextInt(4),
                     velYAsteroides+r.nextInt(4),
@@ -51,13 +51,13 @@ public class NivelJefe implements Nivel {
 
     @Override
     public void update() {
-        ObjetosEnPantalla.update();
+        ElementosEnPantalla.update();
     }
 
     @Override
     public void render(SpriteBatch batch) {
         this.update();
-        ObjetosEnPantalla.render(batch);
+        ElementosEnPantalla.render(batch);
     }
 
     public boolean esGameOver(){
@@ -65,7 +65,7 @@ public class NivelJefe implements Nivel {
     }
 
     public boolean estaCompletado(){
-        return ObjetosEnPantalla.getNumAsteroides() == 0;
+        return ElementosEnPantalla.getNumAsteroides() == 0;
     }
     public int getVidas() {
         if (this.nave == null) return 0;

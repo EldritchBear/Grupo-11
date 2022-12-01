@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.Nave;
 import com.mygdx.game.asteroides.Asteroide;
-import com.mygdx.game.ObjetosEnPantalla;
+import com.mygdx.game.ElementosEnPantalla;
 
 import java.util.Random;
 
@@ -13,17 +13,17 @@ public class NivelNormal implements Nivel {
     final private int nivel;
     final private Nave nave;
     public NivelNormal(int nivel){
-        ObjetosEnPantalla.limpiar();
+        ElementosEnPantalla.limpiar();
         generarAsteroides();
         this.nave = new Nave(Gdx.graphics.getWidth()/2-50,30,new Texture(Gdx.files.internal("MainShip3.png")),
                 Gdx.audio.newSound(Gdx.files.internal("hurt.ogg")));
         nave.setVidas(3);
-        ObjetosEnPantalla.agregarObjeto(nave);
+        ElementosEnPantalla.agregarObjeto(nave);
         this.nivel = nivel;
     }
     public void generarAsteroides(){
         int cantAsteroides = 3 + (this.nivel);
-        ObjetosEnPantalla.setNumAsteroides(cantAsteroides);
+        ElementosEnPantalla.setNumAsteroides(cantAsteroides);
         int velXAsteroides = 1 + (this.nivel / 8);
         int velYAsteroides = 1 + (this.nivel / 8);
         Random r = new Random();
@@ -34,20 +34,20 @@ public class NivelNormal implements Nivel {
                     20+r.nextInt(10), velXAsteroides+r.nextInt(4),
                     velYAsteroides+r.nextInt(4),
                     textura, 2);
-            ObjetosEnPantalla.agregarObjeto(bb);
+            ElementosEnPantalla.agregarObjeto(bb);
         }
     }
 
     @Override
     public void render(SpriteBatch batch) {
         this.update();
-        ObjetosEnPantalla.render(batch);
+        ElementosEnPantalla.render(batch);
     }
 
     @Override
     public void update() {
 
-        ObjetosEnPantalla.update();
+        ElementosEnPantalla.update();
     }
 
     @Override
@@ -56,7 +56,7 @@ public class NivelNormal implements Nivel {
     }
     @Override
     public boolean estaCompletado(){
-        return ObjetosEnPantalla.getNumAsteroides() == 0;
+        return ElementosEnPantalla.getNumAsteroides() == 0;
     }
     @Override
     public int getVidas() {

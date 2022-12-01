@@ -10,7 +10,7 @@ public abstract class Elemento implements Colisionable {
         this.spr = spr;
     }
     public Elemento checkCollision() {
-        return ObjetosEnPantalla.checkCollision(this);
+        return ElementosEnPantalla.checkCollision(this);
     }
     abstract public void colisionado(Elemento objeto);
     public Rectangle getArea() {

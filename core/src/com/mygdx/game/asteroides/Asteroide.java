@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.mygdx.game.Elemento;
 import com.mygdx.game.Nave;
-import com.mygdx.game.ObjetosEnPantalla;
+import com.mygdx.game.ElementosEnPantalla;
 import com.mygdx.game.proyectil.Proyectil;
 
 
@@ -80,7 +80,7 @@ public class Asteroide extends Elemento {
 
     public boolean isDestroyed() {
         if (this.hp > 0) return false;
-        ObjetosEnPantalla.reducirAsteroides();
+        ElementosEnPantalla.reducirAsteroides();
         return true;
     }
 
