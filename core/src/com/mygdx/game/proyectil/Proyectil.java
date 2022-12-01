@@ -9,7 +9,6 @@ import com.mygdx.game.Nave;
 import com.mygdx.game.ObjetoFisico;
 
 public class Proyectil extends ObjetoFisico {
-	private Sprite spr;
 	private float xSpeed;
 	private float ySpeed;
 	private boolean destroyed = false;
@@ -18,8 +17,7 @@ public class Proyectil extends ObjetoFisico {
 	private int rotacion;
 
 	public Proyectil(float x, float y, int velPr, int rr, int dmg){
-		Texture tx = new Texture(Gdx.files.internal("Rocket2.png"));
-		spr = new Sprite(tx);
+		super(new Sprite(new Texture(Gdx.files.internal("Rocket2.png"))));
 		this.rotacion = rr;
 		this.dmg = dmg;
 		//this.velPr = velPr;
@@ -40,6 +38,9 @@ public class Proyectil extends ObjetoFisico {
 		if (spr.getY() < 0 || spr.getY()+spr.getHeight() > Gdx.graphics.getHeight()) {
 			destroyed = true;
 		}
+	}
+	public void colisionado(ObjetoFisico objeto) {
+		objeto.colisionado(this);
 	}
 	public void colisionado(Asteroide asteroide) {
 		this.destroyed = true;

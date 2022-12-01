@@ -9,6 +9,7 @@ import com.mygdx.game.Nave;
 public abstract class Nivel {
     final private Nave nave;
     public Nivel() {
+        ObjetosEnPantalla.limpiar();
         generarAsteroides();
         this.nave = new Nave(Gdx.graphics.getWidth()/2-50,30,new Texture(Gdx.files.internal("MainShip3.png")),
                 Gdx.audio.newSound(Gdx.files.internal("hurt.ogg")));
@@ -19,6 +20,7 @@ public abstract class Nivel {
     public void render(SpriteBatch batch) {
         this.update();
         ObjetosEnPantalla.render(batch);
+//        ObjetosEnPantalla.update();
     }
 
     public void update() {

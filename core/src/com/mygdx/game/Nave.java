@@ -10,7 +10,6 @@ import com.badlogic.gdx.math.Rectangle;
 import com.mygdx.game.proyectil.Proyectil;
 
 public class Nave extends ObjetoFisico {
-    private Sprite spr;
 	private boolean destruida = false;
     private int vidas = 3;
     private float xVel = 0;
@@ -23,8 +22,8 @@ public class Nave extends ObjetoFisico {
     final private Armamento arma;
     
     public Nave(int x, int y, Texture tx, Sound soundChoque) {
-    	sonidoHerido = soundChoque;
-    	spr = new Sprite(tx);
+        super(new Sprite(tx));
+        sonidoHerido = soundChoque;
     	spr.setPosition(x, y);
     	spr.setBounds(x, y, 45, 45);
         arma = new Armamento(1,40,4);
@@ -75,10 +74,11 @@ public class Nave extends ObjetoFisico {
         }
         // disparo
         if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
-            //Proyectil bala = new Proyectil(spr.getX() + spr.getWidth() / 2 - 5, spr.getY() + spr.getHeight() - 5, 3, 3, txBala, rotacion);
             arma.disparar(spr.getX() + spr.getWidth() / 2 - 5, spr.getY() + spr.getHeight() - 5,rotacion);
-            //soundBala.play(0.3f);              esto esta en arma.disparar pero por si no funciona xd
         }
+    }
+    public void colisionado(ObjetoFisico objeto) {
+        objeto.colisionado(this);
     }
     public void colisionado(Asteroide b) {
         if (this.herido) return;
@@ -99,11 +99,9 @@ public class Nave extends ObjetoFisico {
         colisionado((Asteroide)asteroide);
     }
     public void colisionado(Nave nave) {
-        // imposible
+//        throw new ErrorDeFisicaException("La nave colisionó con otra nave, pero solo debería existir una.");
     }
-    public void colisionado(Proyectil proyectil) {
-        // no importa
-    }
+    public void colisionado(Proyectil proyectil) {}
     
     public boolean isDestroyed() {
        return !herido && destruida;

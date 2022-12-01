@@ -61,7 +61,6 @@ public class PantallaJuego implements Screen {
 
 		//el jugador se quedo sin vidas
 		if (nivel.esGameOver()) {
-			System.out.println("Game over");
 			if (score > game.getHighScore()) game.setHighScore(score);
 			Screen ss = new PantallaGameOver(game);
 			ss.resize(1200, 800);

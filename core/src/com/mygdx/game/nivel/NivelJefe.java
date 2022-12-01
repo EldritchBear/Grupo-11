@@ -16,6 +16,7 @@ public class NivelJefe extends Nivel {
     }
     public void generarAsteroides(){
         int cantAsteroides = 4 + (this.nivel);
+        ObjetosEnPantalla.setNumAsteroides(cantAsteroides);
         int velXAsteroides = 1 + (this.nivel / 8);
         int velYAsteroides = 1 + (this.nivel / 8);
         Random r = new Random();
@@ -30,7 +31,6 @@ public class NivelJefe extends Nivel {
         }
         for (int i = 0; i < this.nivel / 3 + 1; i++) {
             cantAsteroides += 1;
-            System.out.println("asteroide jefe");
             ObjetosEnPantalla.agregarObjeto(new AsteroideJefe(r.nextInt(Gdx.graphics.getWidth()),
                     50+r.nextInt(Gdx.graphics.getHeight()-50),
                     20+r.nextInt(10), (velXAsteroides+r.nextInt(4)) * nivel/3,

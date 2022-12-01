@@ -16,19 +16,21 @@ public class ProyectilEspecial1 extends Proyectil {
     private int rotacion;
 
     public ProyectilEspecial1(float x, float y, int velPr, int rr, int dmg){
-        Texture tx = new Texture(Gdx.files.internal("Rocket2.png"));
-        spr = new Sprite(tx);
-        this.rotacion = rr;
+        super(x, y, velPr, rr, dmg);
         this.dmg = dmg;
-        //this.velPr = velPr;
-        spr.setRotation(rotacion);
-
-        this.rotacion += 90;
-
-        this.xSpeed = velPr * (float)(Math.cos(Math.toRadians(rotacion)));
-        this.ySpeed = velPr * (float)(Math.sin(Math.toRadians(rotacion)));
-
-        spr.setPosition(x+xSpeed, y+ySpeed);
+//        Texture tx = new Texture(Gdx.files.internal("Rocket2.png"));
+//        spr = new Sprite(tx);
+//        this.rotacion = rr;
+//        this.dmg = dmg;
+//        //this.velPr = velPr;
+//        spr.setRotation(rotacion);
+//
+//        this.rotacion += 90;
+//
+//        this.xSpeed = velPr * (float)(Math.cos(Math.toRadians(rotacion)));
+//        this.ySpeed = velPr * (float)(Math.sin(Math.toRadians(rotacion)));
+//
+//        spr.setPosition(x+xSpeed, y+ySpeed);
     }
     public void update() {
         spr.setPosition(spr.getX()+xSpeed, spr.getY()+ySpeed);

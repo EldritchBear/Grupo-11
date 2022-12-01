@@ -1,32 +1,18 @@
 package com.mygdx.game;
 
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 
-import java.lang.reflect.Method;
-import java.util.ArrayList;
-
 public abstract class ObjetoFisico implements Colisionable {
-    public ObjetoFisico checkCollision() {
-        ArrayList<ObjetoFisico> lista = ObjetosEnPantalla.getLista();
-        for (ObjetoFisico objeto : lista) {
-            if (objeto == this) continue;
-            if (this.getArea().overlaps(objeto.getArea())) {
-                // https://www.baeldung.com/java-method-reflection
-                try {
-                    Method method = this.getClass().getMethod("colisionado", objeto.getClass());
-                    method.invoke(this, objeto);
-
-                    Method methodColisionado = objeto.getClass().getMethod("colisionado", this.getClass());
-                    methodColisionado.invoke(objeto, this);
-                    return objeto;
-                } catch (Exception e) {
-                    System.out.println(e.getMessage());
-                }
-            }
-        }
-        return null;
+    protected Sprite spr;
+    public ObjetoFisico(Sprite spr) {
+        this.spr = spr;
     }
+    public ObjetoFisico checkCollision() {
+        return ObjetosEnPantalla.checkCollision(this);
+    }
+    abstract public void colisionado(ObjetoFisico objeto);
     public Rectangle getArea() {
         return spr.getBoundingRectangle();
     }

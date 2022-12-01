@@ -7,7 +7,6 @@ import com.mygdx.game.proyectil.Proyectil;
 
 
 public class Asteroide extends ObjetoFisico {
-    private Sprite spr;
     private int x;
     private int y;
     private int xSpeed;
@@ -16,8 +15,7 @@ public class Asteroide extends ObjetoFisico {
     private int colisionCD;
 
     public Asteroide(int x, int y, int size, int xSpeed, int ySpeed, Texture texture, int hp) {
-        spr = new Sprite(texture);
-
+        super(new Sprite(texture));
         this.x = x;
         //validar que borde de esfera no quede fuera
         if (x-size < 0) this.x = x+size;
@@ -44,6 +42,9 @@ public class Asteroide extends ObjetoFisico {
         spr.setPosition(x, y);
         if (colisionCD > 0) colisionCD--;
     }
+    public void colisionado(ObjetoFisico objeto) {
+        objeto.colisionado(this);
+    }
 
     public void colisionado(Asteroide asteroide) {
         if (colisionCD > 0) return;
@@ -59,9 +60,6 @@ public class Asteroide extends ObjetoFisico {
 
         setColisionCD(3);
         asteroide.setColisionCD(3);
-    }
-    public void colisionado(AsteroideJefe asteroide) {
-        colisionado((Asteroide)asteroide);
     }
 
     public void colisionado(Nave nave) {

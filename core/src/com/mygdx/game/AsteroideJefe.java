@@ -5,7 +5,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
 public class AsteroideJefe extends Asteroide{
-    private Sprite spr; // falta pasar spr desde superclase, o usar spr diferente
     private int x;
     private int y;
     private int colisionCD;
