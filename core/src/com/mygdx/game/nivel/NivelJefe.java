@@ -15,8 +15,9 @@ public class NivelJefe extends Nivel {
         this.nivel = nivel;
     }
     public void generarAsteroides(){
-        int cantAsteroides = 4 + (this.nivel);
-        ObjetosEnPantalla.setNumAsteroides(cantAsteroides);
+        int cantAsteroides = (this.nivel);
+        int cantAsteroidesJefe = this.nivel / 3 + 1;
+        ObjetosEnPantalla.setNumAsteroides(cantAsteroides + cantAsteroidesJefe);
         int velXAsteroides = 1 + (this.nivel / 8);
         int velYAsteroides = 1 + (this.nivel / 8);
         Random r = new Random();
@@ -29,13 +30,14 @@ public class NivelJefe extends Nivel {
                     textura, 2);
             ObjetosEnPantalla.agregarObjeto(bb);
         }
-        for (int i = 0; i < this.nivel / 3 + 1; i++) {
+        for (int i = 0; i < cantAsteroidesJefe; i++) {
             cantAsteroides += 1;
+            Texture texturaJefe = new Texture(Gdx.files.internal("aGreyLarge.png"));
             ObjetosEnPantalla.agregarObjeto(new AsteroideJefe(r.nextInt(Gdx.graphics.getWidth()),
                     50+r.nextInt(Gdx.graphics.getHeight()-50),
-                    20+r.nextInt(10), (velXAsteroides+r.nextInt(4)) * nivel/3,
-                    (velYAsteroides+r.nextInt(4)) * nivel/3,
-                    textura, 6 + nivel));
+                    200+r.nextInt(50), velXAsteroides+r.nextInt(4),
+                    velYAsteroides+r.nextInt(4),
+                    texturaJefe, 6 + nivel));
         }
     }
 }

@@ -1,15 +1,14 @@
 package com.mygdx.game.proyectil;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import asteroides.Asteroide;
 import com.mygdx.game.Nave;
 import com.mygdx.game.Elemento;
 
 public class Proyectil extends Elemento {
-	private float xSpeed;
-	private float ySpeed;
+	private final float xSpeed;
+	private final float ySpeed;
 	private boolean destroyed = false;
 	//private int velPr;                     //cambiar xspeed y yspeed por esto?
 	final private int dmg;
@@ -19,7 +18,6 @@ public class Proyectil extends Elemento {
 		super(spr);
 		this.rotacion = rr;
 		this.dmg = dmg;
-		//this.velPr = velPr;
 		setRotation(rotacion);
 
 		this.rotacion += 90;

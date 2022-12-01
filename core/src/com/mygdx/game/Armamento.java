@@ -11,11 +11,11 @@ import java.util.Random;
 
 public class Armamento {
 
-    private int dmg;
+    private final int dmg;
 
-    private int velAt;        //esto define el cooldown (cdBala)
+    private final int velAt;        //esto define el cooldown (cdBala)
 
-    private int velPr;
+    private final int velPr;
 
     private int cdBala;
 
@@ -37,9 +37,11 @@ public class Armamento {
 
         if (cdBala == 0) {
             Random rand = new Random();
-            int crit = rand.nextInt(10);
-            if (crit < critChance) factory = new ProyectilNormalFactory();
-            else factory = new ProyectilEspecial1Factory();
+            int crit = rand.nextInt(101);
+            System.out.println("crit = " + crit + " critChance = "+critChance);
+            if (crit < critChance) factory = new ProyectilEspecial1Factory();
+            else factory = new ProyectilNormalFactory();
+            System.out.println(factory);
             bala = factory.crearProyectil(x,y,velPr,rotacion,dmg);
             cdBala = velAt;
             soundBala.play(0.3f);
@@ -47,29 +49,25 @@ public class Armamento {
         }
     }
 
-    public int getDmg() {
-        return dmg;
-    }
+//    public int getVelPr() {
+//        return velPr;
+//    }
 
-    public int getVelPr() {
-        return velPr;
-    }
+//    public int getVelAt(){
+//        return velAt;
+//    }
 
-    public int getVelAt(){
-        return velAt;
-    }
-
-    public void setDmg(int dd){
-        this.dmg = dd;
-    }
-
-    public void setVelAt(int velAt) {
-        this.velAt = velAt;
-    }
-
-    public void setVelPr(int velPr) {
-        this.velPr = velPr;
-    }
+//    public void setDmg(int dd){
+//        this.dmg = dd;
+//    }
+//
+//    public void setVelAt(int velAt) {
+//        this.velAt = velAt;
+//    }
+//
+//    public void setVelPr(int velPr) {
+//        this.velPr = velPr;
+//    }
 
     public void disminuirCdBala() {
         if (cdBala > 0) cdBala--;

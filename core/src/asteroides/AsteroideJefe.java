@@ -2,7 +2,6 @@ package asteroides;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 
 public class AsteroideJefe extends Asteroide {
     private int x;
@@ -10,8 +9,10 @@ public class AsteroideJefe extends Asteroide {
     private int colisionCD;
 
     public AsteroideJefe(int x, int y, int size, int xSpeed, int ySpeed, Texture texture, int hp){
-        super(x,y,size * 5,xSpeed,ySpeed,texture,hp);
-        setSize(getWidth() * 5,getWidth() * 5);
+        super(x,y,size,xSpeed,ySpeed,texture,hp);
+        setSize(size,size);
+        System.out.println(xSpeed);
+//        setBounds(x, y, 300, 300);
     }
     public void update(){
         x += getXSpeed() * 2;

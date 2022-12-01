@@ -20,11 +20,9 @@ public abstract class Nivel {
     public void render(SpriteBatch batch) {
         this.update();
         ObjetosEnPantalla.render(batch);
-//        ObjetosEnPantalla.update();
     }
 
     public void update() {
-
         ObjetosEnPantalla.update();
     }
 

@@ -27,7 +27,7 @@ public class Nave extends Elemento {
         sonidoHerido = soundChoque;
     	setPosition(x, y);
     	setBounds(x, y, 45, 45);
-        arma = new Armamento(1,40,4, 9);
+        arma = new Armamento(1,40,4, 25);
     }
 
     public void update() {

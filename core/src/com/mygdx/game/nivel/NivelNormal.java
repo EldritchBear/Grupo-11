@@ -14,7 +14,7 @@ public class NivelNormal extends Nivel {
         this.nivel = nivel;
     }
     public void generarAsteroides(){
-        int cantAsteroides = 7 + (this.nivel);
+        int cantAsteroides = 3 + (this.nivel);
         ObjetosEnPantalla.setNumAsteroides(cantAsteroides);
         int velXAsteroides = 1 + (this.nivel / 8);
         int velYAsteroides = 1 + (this.nivel / 8);
