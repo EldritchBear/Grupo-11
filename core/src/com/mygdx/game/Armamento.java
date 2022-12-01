@@ -34,6 +34,7 @@ public class Armamento {
     public void disparar(float x, float y, int rotacion){
         ProyectilFactory factory;
         Proyectil bala;
+
         if (cdBala == 0){
             Random rand = new Random();
             int crit = rand.nextInt(10);

@@ -5,6 +5,6 @@ import org.w3c.dom.Text;
 public class ProyectilNormalFactory implements ProyectilFactory{
     @Override
     public Proyectil crearProyectil(float x, float y, int vel, int rot, int dmg) {
-        return null;
+        return new ProyectilEspecial1(x, y, vel, rot, dmg);
     }
 }
