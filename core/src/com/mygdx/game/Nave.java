@@ -1,5 +1,6 @@
 package com.mygdx.game;
 
+import asteroides.Asteroide;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.audio.Sound;
@@ -9,7 +10,7 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.mygdx.game.proyectil.Proyectil;
 
-public class Nave extends ObjetoFisico {
+public class Nave extends Elemento {
 	private boolean destruida = false;
     private int vidas = 3;
     private float xVel = 0;
@@ -24,18 +25,18 @@ public class Nave extends ObjetoFisico {
     public Nave(int x, int y, Texture tx, Sound soundChoque) {
         super(new Sprite(tx));
         sonidoHerido = soundChoque;
-    	spr.setPosition(x, y);
-    	spr.setBounds(x, y, 45, 45);
-        arma = new Armamento(1,40,4);
+    	setPosition(x, y);
+    	setBounds(x, y, 45, 45);
+        arma = new Armamento(1,40,4, 9);
     }
 
     public void update() {
         arma.disminuirCdBala();
-        float x = spr.getX();
-        float y = spr.getY();
+        float x = getX();
+        float y = getY();
         if (!herido) {
-            if (Gdx.input.isKeyPressed(Input.Keys.A)) spr.setRotation(++rotacion);
-            if (Gdx.input.isKeyPressed(Input.Keys.D)) spr.setRotation(--rotacion);
+            if (Gdx.input.isKeyPressed(Input.Keys.A)) setRotation(++rotacion);
+            if (Gdx.input.isKeyPressed(Input.Keys.D)) setRotation(--rotacion);
 
             if (Gdx.input.isKeyPressed(Input.Keys.W)) {
                 xVel -= Math.sin(Math.toRadians(rotacion)) * 0.1;
@@ -60,24 +61,24 @@ public class Nave extends ObjetoFisico {
             }
 
             // que se mantenga dentro de los bordes de la ventana
-            if (x + xVel < 0 || x + xVel + spr.getWidth() > Gdx.graphics.getWidth())
+            if (x + xVel < 0 || x + xVel + getWidth() > Gdx.graphics.getWidth())
                 xVel *= -1;
-            if (y + yVel < 0 || y + yVel + spr.getHeight() > Gdx.graphics.getHeight())
+            if (y + yVel < 0 || y + yVel + getHeight() > Gdx.graphics.getHeight())
                 yVel *= -1;
 
-            spr.setPosition(x + xVel, y + yVel);
+            setPosition(x + xVel, y + yVel);
         } else {
-            spr.setX(spr.getX() + MathUtils.random(-2, 2));
-            spr.setX(x);
+            setX(getX() + MathUtils.random(-2, 2));
+            setX(x);
             tiempoHerido--;
             if (tiempoHerido <= 0) herido = false;
         }
         // disparo
         if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
-            arma.disparar(spr.getX() + spr.getWidth() / 2 - 5, spr.getY() + spr.getHeight() - 5,rotacion);
+            arma.disparar(getX() + getWidth() / 2 - 5, getY() + getHeight() - 5,rotacion);
         }
     }
-    public void colisionado(ObjetoFisico objeto) {
+    public void colisionado(Elemento objeto) {
         objeto.colisionado(this);
     }
     public void colisionado(Asteroide b) {
@@ -95,9 +96,6 @@ public class Nave extends ObjetoFisico {
         if (vidas<=0)
             destruida = true;
     }
-    public void colisionado(AsteroideJefe asteroide) {
-        colisionado((Asteroide)asteroide);
-    }
     public void colisionado(Nave nave) {
 //        throw new ErrorDeFisicaException("La nave colisionó con otra nave, pero solo debería existir una.");
     }
@@ -107,7 +105,7 @@ public class Nave extends ObjetoFisico {
        return !herido && destruida;
     }
     public Rectangle getArea() {
-        return new Rectangle(spr.getX(), spr.getY(), spr.getWidth(), spr.getHeight());
+        return new Rectangle(getX(), getY(), getWidth(), getHeight());
     }
     public int getVidas() {return vidas;}
 	public void setVidas(int vidas2) {vidas = vidas2;}

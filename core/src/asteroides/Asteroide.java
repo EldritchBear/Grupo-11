@@ -1,12 +1,15 @@
-package com.mygdx.game;
+package asteroides;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.mygdx.game.Elemento;
+import com.mygdx.game.Nave;
+import com.mygdx.game.ObjetosEnPantalla;
 import com.mygdx.game.proyectil.Proyectil;
 
 
-public class Asteroide extends ObjetoFisico {
+public class Asteroide extends Elemento {
     private int x;
     private int y;
     private int xSpeed;
@@ -26,7 +29,7 @@ public class Asteroide extends ObjetoFisico {
         if (y-size < 0) this.y = y+size;
         if (y+size > Gdx.graphics.getHeight())this.y = y-size;
 
-        spr.setPosition(x, y);
+        setPosition(x, y);
         this.xSpeed = xSpeed;
         this.ySpeed = ySpeed;
         this.hp = hp;
@@ -35,14 +38,14 @@ public class Asteroide extends ObjetoFisico {
         x += getXSpeed();
         y += getySpeed();
 
-        if (x+getXSpeed() < 0 || x+getXSpeed()+spr.getWidth() > Gdx.graphics.getWidth())
+        if (x+getXSpeed() < 0 || x+getXSpeed()+getWidth() > Gdx.graphics.getWidth())
         	setXSpeed(getXSpeed() * -1);
-        if (y+getySpeed() < 0 || y+getySpeed()+spr.getHeight() > Gdx.graphics.getHeight())
+        if (y+getySpeed() < 0 || y+getySpeed()+getHeight() > Gdx.graphics.getHeight())
         	setySpeed(getySpeed() * -1);
-        spr.setPosition(x, y);
+        setPosition(x, y);
         if (colisionCD > 0) colisionCD--;
     }
-    public void colisionado(ObjetoFisico objeto) {
+    public void colisionado(Elemento objeto) {
         objeto.colisionado(this);
     }
 

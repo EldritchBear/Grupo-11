@@ -35,13 +35,12 @@ public class Armamento {
         ProyectilFactory factory;
         Proyectil bala;
 
-        if (cdBala == 0){
+        if (cdBala == 0) {
             Random rand = new Random();
             int crit = rand.nextInt(10);
-            if (crit < critChance) {factory = new ProyectilNormalFactory();}
-            else {factory = new ProyectilEspecial1Factory();}
+            if (crit < critChance) factory = new ProyectilNormalFactory();
+            else factory = new ProyectilEspecial1Factory();
             bala = factory.crearProyectil(x,y,velPr,rotacion,dmg);
-            }
             cdBala = velAt;
             soundBala.play(0.3f);
             ObjetosEnPantalla.agregarACola(bala);

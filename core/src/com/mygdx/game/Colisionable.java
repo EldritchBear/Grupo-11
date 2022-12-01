@@ -1,6 +1,6 @@
 package com.mygdx.game;
 
-import com.mygdx.game.excepciones.ErrorDeFisicaException;
+import asteroides.Asteroide;
 import com.mygdx.game.proyectil.Proyectil;
 
 public interface Colisionable {

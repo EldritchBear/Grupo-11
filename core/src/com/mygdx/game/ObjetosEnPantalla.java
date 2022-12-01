@@ -5,10 +5,10 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import java.util.ArrayList;
 
 public class ObjetosEnPantalla {
-    private static ArrayList<ObjetoFisico> lista;
-    private static ArrayList<ObjetoFisico> cola;
-    private static ArrayList<ObjetoFisico> colaDestruidos;
-    private static ArrayList<ObjetoFisico> objetosColisionados;
+    private static ArrayList<Elemento> lista;
+    private static ArrayList<Elemento> cola;
+    private static ArrayList<Elemento> colaDestruidos;
+    private static ArrayList<Elemento> objetosColisionados;
     private static int numAsteroides;
     private ObjetosEnPantalla() {
         lista = new ArrayList<>();
@@ -28,12 +28,12 @@ public class ObjetosEnPantalla {
         numAsteroides = num;
     }
 
-    public static void agregarObjeto(ObjetoFisico objeto) {
+    public static void agregarObjeto(Elemento objeto) {
         if (lista == null) new ObjetosEnPantalla();
         lista.add(objeto);
     }
 
-    public static void agregarDestruido(ObjetoFisico objeto) {
+    public static void agregarDestruido(Elemento objeto) {
         colaDestruidos.add(objeto);
     }
     public static void limpiar() {
@@ -50,7 +50,7 @@ public class ObjetosEnPantalla {
         colaDestruidos = new ArrayList<>();
     }
 
-    public static void agregarColisionado(ObjetoFisico objeto) {
+    public static void agregarColisionado(Elemento objeto) {
         objetosColisionados.add(objeto);
     }
 
@@ -58,15 +58,15 @@ public class ObjetosEnPantalla {
         objetosColisionados = new ArrayList<>();
     }
 
-    public static boolean revisarColision(ObjetoFisico objeto) {
+    public static boolean revisarColision(Elemento objeto) {
         return objetosColisionados.contains(objeto);
     }
 
     public static void update() {
-        for (ObjetoFisico objeto : lista) {
+        for (Elemento objeto : lista) {
             objeto.update();
             if (!revisarColision(objeto)) {
-                ObjetoFisico objetoColisionado = objeto.checkCollision();
+                Elemento objetoColisionado = objeto.checkCollision();
                 if (objetoColisionado != null) {
                     agregarColisionado(objeto);
                     agregarColisionado(objetoColisionado);
@@ -80,17 +80,17 @@ public class ObjetosEnPantalla {
     }
 
     public static void render(SpriteBatch batch) {
-        for (ObjetoFisico b : lista) {
+        for (Elemento b : lista) {
             b.draw(batch);
         }
     }
 
-    public static void agregarACola(ObjetoFisico objeto) {
+    public static void agregarACola(Elemento objeto) {
         cola.add(objeto);
     }
 
-    public static ObjetoFisico checkCollision(ObjetoFisico objRecibido) {
-        for (ObjetoFisico objeto : lista) {
+    public static Elemento checkCollision(Elemento objRecibido) {
+        for (Elemento objeto : lista) {
             if (objeto == objRecibido) continue;
             if (objRecibido.getArea().overlaps(objeto.getArea())) {
                 objRecibido.colisionado(objeto);
