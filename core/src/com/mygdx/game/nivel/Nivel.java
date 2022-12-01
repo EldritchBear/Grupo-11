@@ -6,37 +6,18 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.ObjetosEnPantalla;
 import com.mygdx.game.Nave;
 
-public abstract class Nivel {
-    final private Nave nave;
-    public Nivel() {
-        ObjetosEnPantalla.limpiar();
-        generarAsteroides();
-        this.nave = new Nave(Gdx.graphics.getWidth()/2-50,30,new Texture(Gdx.files.internal("MainShip3.png")),
-                Gdx.audio.newSound(Gdx.files.internal("hurt.ogg")));
-                nave.setVidas(3);
-        ObjetosEnPantalla.agregarObjeto(nave);
-    }
+public interface Nivel {
 
-    public void render(SpriteBatch batch) {
-        this.update();
-        ObjetosEnPantalla.render(batch);
-    }
 
-    public void update() {
-        ObjetosEnPantalla.update();
-    }
+    void render(SpriteBatch batch);
 
-    public boolean esGameOver(){
-        return nave.getVidas() == 0;
-    }
+    void update();
 
-    public boolean estaCompletado(){
-        return ObjetosEnPantalla.getNumAsteroides() == 0;
-    }
-    public int getVidas() {
-        if (this.nave == null) return 0;
-        return this.nave.getVidas();
-    }
+    boolean esGameOver();
 
-    abstract void generarAsteroides();
+    boolean estaCompletado();
+
+    void generarAsteroides();
+
+    int getVidas();
 }

@@ -1,4 +1,4 @@
-package asteroides;
+package com.mygdx.game.asteroides;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
