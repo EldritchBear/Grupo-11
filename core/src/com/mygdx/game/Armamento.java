@@ -3,7 +3,7 @@ package com.mygdx.game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.mygdx.game.proyectil.Proyectil;
-import com.mygdx.game.proyectil.ProyectilEspecial1Factory;
+import com.mygdx.game.proyectil.ProyectilEspecialFactory;
 import com.mygdx.game.proyectil.ProyectilFactory;
 import com.mygdx.game.proyectil.ProyectilNormalFactory;
 
@@ -38,37 +38,14 @@ public class Armamento {
         if (cdBala == 0) {
             Random rand = new Random();
             int crit = rand.nextInt(101);
-            System.out.println("crit = " + crit + " critChance = "+critChance);
-            if (crit < critChance) factory = new ProyectilEspecial1Factory();
+            if (crit < critChance) factory = new ProyectilEspecialFactory();
             else factory = new ProyectilNormalFactory();
-            System.out.println(factory);
             bala = factory.crearProyectil(x,y,velPr,rotacion,dmg);
             cdBala = velAt;
             soundBala.play(0.3f);
             ElementosEnPantalla.agregarACola(bala);
         }
     }
-
-//    public int getVelPr() {
-//        return velPr;
-//    }
-
-//    public int getVelAt(){
-//        return velAt;
-//    }
-
-//    public void setDmg(int dd){
-//        this.dmg = dd;
-//    }
-//
-//    public void setVelAt(int velAt) {
-//        this.velAt = velAt;
-//    }
-//
-//    public void setVelPr(int velPr) {
-//        this.velPr = velPr;
-//    }
-
     public void disminuirCdBala() {
         if (cdBala > 0) cdBala--;
     }

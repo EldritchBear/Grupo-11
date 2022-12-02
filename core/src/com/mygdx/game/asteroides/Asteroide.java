@@ -75,6 +75,7 @@ public class Asteroide extends Elemento {
     }
 
     public void colisionado(Proyectil proyectil) {
+        if (!proyectil.takeDamage(this)) return;
         this.quitarHp(proyectil.getDamage());
     }
 

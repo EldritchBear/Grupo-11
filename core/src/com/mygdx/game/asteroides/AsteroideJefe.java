@@ -11,8 +11,6 @@ public class AsteroideJefe extends Asteroide {
     public AsteroideJefe(int x, int y, int size, int xSpeed, int ySpeed, Texture texture, int hp){
         super(x,y,size,xSpeed,ySpeed,texture,hp);
         setSize(size,size);
-        System.out.println(xSpeed);
-//        setBounds(x, y, 300, 300);
     }
     public void update(){
         x += getXSpeed() * 2;

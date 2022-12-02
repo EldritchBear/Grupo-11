@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 
 public abstract class Elemento implements Colisionable {
-    private Sprite spr;
+    private final Sprite spr;
     public Elemento(Sprite spr) {
         this.spr = spr;
     }

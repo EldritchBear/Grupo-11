@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.SpaceNavigation;
+import com.mygdx.game.Vidas;
 import com.mygdx.game.nivel.Nivel;
 import com.mygdx.game.nivel.NivelJefe;
 import com.mygdx.game.nivel.NivelNormal;
@@ -18,17 +19,17 @@ public class PantallaJuego implements Screen {
 	final private SpriteBatch batch;
 	final private Sound explosionSound;
 	final private Music gameMusic;
-	final private int score;
 	final private int ronda;
 	final private Nivel nivel;
+	Vidas vidas;
 
-	public PantallaJuego(SpaceNavigation game, int ronda, int score) {
+	public PantallaJuego(SpaceNavigation game, int ronda, Vidas vidas) {
 		this.game = game;
 		this.ronda = ronda;
-		this.score = score;
+		this.vidas = vidas;
 
-		if (ronda % 3 != 0) this.nivel = new NivelNormal(ronda);
-		else {this.nivel = new NivelJefe(ronda);}
+		if (ronda % 3 != 0) this.nivel = new NivelNormal(ronda, vidas);
+		else {this.nivel = new NivelJefe(ronda, vidas);}
 		
 		batch = game.getBatch();
 		OrthographicCamera camera = new OrthographicCamera();
@@ -48,8 +49,6 @@ public class PantallaJuego implements Screen {
 		CharSequence str = "Vidas: "+ nivel.getVidas()+" Nivel: "+ronda;
 		game.getFont().getData().setScale(2f);
 		game.getFont().draw(batch, str, 10, 30);
-		game.getFont().draw(batch, "Score:"+this.score, Gdx.graphics.getWidth()-150, 30);
-		game.getFont().draw(batch, "HighScore:"+game.getHighScore(), Gdx.graphics.getWidth()/2-100, 30);
 	}
 	@Override
 	public void render(float delta) {
@@ -61,7 +60,6 @@ public class PantallaJuego implements Screen {
 
 		//el jugador se quedo sin vidas
 		if (nivel.esGameOver()) {
-			if (score > game.getHighScore()) game.setHighScore(score);
 			Screen ss = new PantallaGameOver(game);
 			ss.resize(1200, 800);
 			game.setScreen(ss);
@@ -70,7 +68,7 @@ public class PantallaJuego implements Screen {
 		batch.end();
 		//nivel completado
 		if (nivel.estaCompletado()) {
-			Screen ss = new PantallaJuego(game,ronda+1, score);
+			Screen ss = new PantallaJuego(game,ronda+1, vidas);
 			ss.resize(1200, 800);
 			game.setScreen(ss);
 			dispose();

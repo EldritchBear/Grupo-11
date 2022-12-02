@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.Nave;
+import com.mygdx.game.Vidas;
 import com.mygdx.game.asteroides.Asteroide;
 import com.mygdx.game.asteroides.AsteroideJefe;
 import com.mygdx.game.ElementosEnPantalla;
@@ -13,18 +14,18 @@ import java.util.Random;
 public class NivelJefe implements Nivel {
     final private int nivel;
     final private Nave nave;
-    public NivelJefe(int nivel) {
+    public NivelJefe(int nivel, Vidas vidas) {
+        vidas.agregarVidas(1);
         ElementosEnPantalla.limpiar();
+        this.nivel = nivel;
         generarAsteroides();
         this.nave = new Nave(Gdx.graphics.getWidth()/2-50,30,new Texture(Gdx.files.internal("MainShip3.png")),
-                Gdx.audio.newSound(Gdx.files.internal("hurt.ogg")));
-        nave.setVidas(3);
+                Gdx.audio.newSound(Gdx.files.internal("hurt.ogg")), vidas);
         ElementosEnPantalla.agregarObjeto(nave);
-        this.nivel = nivel;
     }
     public void generarAsteroides(){
         int cantAsteroides = (this.nivel);
-        int cantAsteroidesJefe = this.nivel / 3 + 1;
+        int cantAsteroidesJefe = this.nivel / 3;
         ElementosEnPantalla.setNumAsteroides(cantAsteroides + cantAsteroidesJefe);
         int velXAsteroides = 1 + (this.nivel / 8);
         int velYAsteroides = 1 + (this.nivel / 8);

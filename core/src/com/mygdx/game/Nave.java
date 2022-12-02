@@ -12,7 +12,7 @@ import com.mygdx.game.proyectil.Proyectil;
 
 public class Nave extends Elemento {
 	private boolean destruida = false;
-    private int vidas = 3;
+    private final Vidas vidas;
     private float xVel = 0;
     private float yVel = 0;
     final private Sound sonidoHerido;
@@ -22,8 +22,9 @@ public class Nave extends Elemento {
     private int rotacion = 0;
     final private Armamento arma;
     
-    public Nave(int x, int y, Texture tx, Sound soundChoque) {
+    public Nave(int x, int y, Texture tx, Sound soundChoque, Vidas vidas) {
         super(new Sprite(tx));
+        this.vidas = vidas;
         sonidoHerido = soundChoque;
     	setPosition(x, y);
     	setBounds(x, y, 45, 45);
@@ -89,16 +90,14 @@ public class Nave extends Elemento {
         if (yVel ==0) yVel += b.getySpeed()/2;
         yVel = - yVel;
         //actualizar vidas y herir
-        this.vidas--;
+        vidas.reducirVidas(1);
         herido = true;
         tiempoHerido=tiempoHeridoMax;
         sonidoHerido.play();
-        if (vidas<=0)
+        if (vidas.getVidas()<=0)
             destruida = true;
     }
-    public void colisionado(Nave nave) {
-//        throw new ErrorDeFisicaException("La nave colisionó con otra nave, pero solo debería existir una.");
-    }
+    public void colisionado(Nave nave) {}
     public void colisionado(Proyectil proyectil) {}
     
     public boolean isDestroyed() {
@@ -107,8 +106,7 @@ public class Nave extends Elemento {
     public Rectangle getArea() {
         return new Rectangle(getX(), getY(), getWidth(), getHeight());
     }
-    public int getVidas() {return vidas;}
-	public void setVidas(int vidas2) {vidas = vidas2;}
+    public int getVidas() {return vidas.getVidas();}
     public float getVelX() {return xVel;}
     public float getVelY() {return yVel;}
 }

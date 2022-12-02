@@ -42,14 +42,13 @@ public class Proyectil extends Elemento {
 	public void colisionado(Asteroide asteroide) {
 		this.destroyed = true;
 	}
-	public void colisionado(Nave nave) {
-		// nada
-	}
-	public void colisionado(Proyectil proyectil) {
-		// nada
-	}
+	public void colisionado(Nave nave) {}
+	public void colisionado(Proyectil proyectil) {}
 	public boolean isDestroyed() {return destroyed;}
 	public int getDamage() {
 		return this.dmg;
+	}
+	public boolean takeDamage(Asteroide asteroide) {
+		return true;
 	}
 }
