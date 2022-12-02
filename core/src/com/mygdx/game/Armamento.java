@@ -6,7 +6,6 @@ import com.mygdx.game.proyectil.Proyectil;
 import com.mygdx.game.proyectil.ProyectilEspecialFactory;
 import com.mygdx.game.proyectil.ProyectilFactory;
 import com.mygdx.game.proyectil.ProyectilNormalFactory;
-
 import java.util.Random;
 
 public class Armamento {
@@ -21,7 +20,7 @@ public class Armamento {
 
     final private Sound soundBala;
 
-    final int critChance;    //este valor se tiene que ir reduciendo para aumentar la probabilidad.
+    final int critChance;
 
     public Armamento(int dd, int vA, int vP, int cC){
         this.dmg = dd;
@@ -40,7 +39,9 @@ public class Armamento {
             int crit = rand.nextInt(101);
             if (crit < critChance) factory = new ProyectilEspecialFactory();
             else factory = new ProyectilNormalFactory();
-            bala = factory.crearProyectil(x,y,velPr,rotacion,dmg);
+            Float nuevoX = (float) (x  + Math.cos(Math.toRadians(rotacion + 90)) * 30);
+            Float nuevoY = (float) (y - 30  + Math.sin(Math.toRadians(rotacion + 90)) * 30);
+            bala = factory.crearProyectil(nuevoX, nuevoY,velPr,rotacion,dmg);
             cdBala = velAt;
             soundBala.play(0.3f);
             ElementosEnPantalla.agregarACola(bala);

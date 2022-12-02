@@ -28,8 +28,7 @@ public class PantallaJuego implements Screen {
 		this.ronda = ronda;
 		this.vidas = vidas;
 
-		if (ronda % 3 != 0) this.nivel = new NivelNormal(ronda, vidas);
-		else {this.nivel = new NivelJefe(ronda, vidas);}
+		this.nivel = generarNivel(ronda);
 		
 		batch = game.getBatch();
 		OrthographicCamera camera = new OrthographicCamera();
@@ -111,6 +110,11 @@ public class PantallaJuego implements Screen {
 		// TODO Auto-generated method stub
 		this.explosionSound.dispose();
 		this.gameMusic.dispose();
+	}
+	
+	public Nivel generarNivel(int ronda) {
+		if (ronda % 3 != 0) return new NivelNormal(ronda, vidas);
+		return new NivelJefe(ronda, vidas);
 	}
    
 }
