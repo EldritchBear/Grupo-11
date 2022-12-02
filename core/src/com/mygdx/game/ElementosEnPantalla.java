@@ -21,7 +21,6 @@ public class ElementosEnPantalla {
         numAsteroides--;
     }
     public static int getNumAsteroides() {
-//        if (lista == null) new ObjetosEnPantalla();
         return numAsteroides;
     }
     public static void setNumAsteroides(int num) {

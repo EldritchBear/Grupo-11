@@ -99,7 +99,6 @@ public class Nave extends Elemento {
     }
     public void colisionado(Nave nave) {}
     public void colisionado(Proyectil proyectil) {}
-    
     public boolean isDestroyed() {
        return !herido && destruida;
     }
